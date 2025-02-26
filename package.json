@@ -45,7 +45,7 @@
     ]
   },
   "proxy": "http://localhost:5000",
-  "homepage": "https://msunda17.github.io/ProxyAI",
+  "homepage": "https://proxyai.onrender.com",
   "devDependencies": {
     "gh-pages": "^6.3.0"
   }
