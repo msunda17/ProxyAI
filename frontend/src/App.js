@@ -82,7 +82,7 @@ export default function ChatInterface() {
               disabled={loading}
             >
               {loading ? "Processing..." : "Generate Activity"}
-            </Button>
+            </Button> 
           </CardActions>
         </CardContent>
       </Card>
