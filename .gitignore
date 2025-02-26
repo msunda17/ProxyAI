@@ -7,15 +7,15 @@
 /backend/json_format_index
 /backend/system_prompt_index
 /backend/wandb
-/frontend/node_modules
-/frontend/.pnp
+/node_modules
+/.pnp
 .pnp.js
 
 # testing
-/frontend/coverage
+/coverage
 
 # production
-/frontend/build
+/build
 
 # misc
 .DS_Store
