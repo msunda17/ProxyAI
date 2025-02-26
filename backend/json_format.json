@@ -1,0 +1,123 @@
+{
+    "activityTitle": "",
+    "activityDescription": "",
+    "activityWebsite": "",
+    "primaryContact": {
+        "firstName": "",
+        "lastName": "",
+        "email": "",
+        "phone": ""
+    },
+    "activityDates": {
+        "startDate": "",
+        "endDate": ""
+    },
+    "units": [],
+    "programsOrInitiatives": [],
+    "facultyOrStaff": [],
+    "participantFacultyStaff": 0,
+    "communityOrganizations": [
+        {
+            "name": "",
+            "primaryContact": {
+                "firstName": "",
+                "lastName": "",
+                "email": "",
+                "phone": ""
+            }
+        }
+    ],
+    "otherInstitutions": {
+        "k12schools": [{
+            "name": "",
+            "primaryContact": {
+                "firstName": "",
+                "lastName": "",
+                "email": "",
+                "phone": ""
+            }
+        }],
+        "institutions": [{
+            "name": "",
+            "primaryContact": {
+                "firstName": "",
+                "lastName": "",
+                "email": "",
+                "phone": ""
+            }
+        }]
+    },
+    "fundingDetails": {
+        "isFunded": false,
+        "funders": [
+            {
+                "funderName": "",
+                "isInternalSource": false,
+                "amount": 0,
+                "startDate": "",
+                "endDate": ""
+            }
+        ]
+    },
+    "activityLocationDetails": {
+        "isPhysical": false,
+        "physicalSites": [
+            {
+                "country": "",
+                "street1": "",
+                "street2": "",
+                "zipCode": ""
+            }
+        ]
+    },
+    "targetPopulation": [],
+    "focusAreaCategories": [],
+    "focusAreasWithinCategories": {
+        "artsAndCulture": [],
+        "communityAndEconomicDevelopment": [],
+        "education": [],
+        "environmentalSustainability": [],
+        "governmentAndPublicSafety": [],
+        "healthAndWellness": [],
+        "socialIssues": []
+    },
+    "coursesDetails": [
+        {
+            "isConnected": false,
+            "courseName": "",
+            "studentEnrollCount": 0,
+            "isEnrollCountActual": false,
+            "studentContributingHours": 0,
+            "isContributingHoursActual": false,
+            "pedagogies": [],
+            "studentLearningObjectives": []
+        }
+    ],
+    "researchDetails": [
+        {
+            "isConnected": false,
+            "researchType": "",
+            "scholarlyProducts": []
+        }
+    ],
+    "goals": {
+        "outputs": {
+            "expected": [],
+            "achieved": []
+        },
+        "institutionalOutcomes": {
+            "expected": [],
+            "achieved": []
+        },
+        "communityImpacts": {
+            "expected": [],
+            "achieved": []
+        }
+    },
+    "communityIndividualsServed": 0,
+    "communityViewsDescription": "",
+    "dataCollectionDetails": {
+        "isSystematic": false,
+        "description": ""
+    }
+}

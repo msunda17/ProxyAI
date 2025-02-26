@@ -1,0 +1,95 @@
+{
+    "target_population": [
+        "Infants (0-5)", "Children (6-11)", "Youth (12-17)", "Young Adults (18-24)",
+        "Adults (25-64)", "Older Adults (65+)", "Men", "Women", "Transgender",
+        "College Students", "Families", "Individuals with Disabilities", "General Public",
+        "Regional Towns/Cities", "Rural Communities", "Urban Communities", "Military/Veterans",
+        "African American", "Asian-Pacific Islander", "Immigrants", "Indigenous",
+        "Lesbian, Gay, and Bisexual", "Refugees", "Hispanic, Latino, or Spanish Origin", "White"
+    ],
+    "areas_of_focus": {
+        "arts_and_culture": [
+            "Cultural appreciation/celebration", "Cultural institutions", "Dance",
+            "Design", "Literary arts", "Local history", "Media Arts", "Music",
+            "Public arts", "Theatre/Performance", "Visual arts"
+        ],
+        "community_and_economic_development": [
+            "Business development (<50 employees)", "Business development (50-249 employees)",
+            "Business development (250+ employees)", "Business leadership/management development",
+            "Business planning", "Business startup", "Career and professional development",
+            "Employment assistance", "Entrepreneurship", "Financial literacy",
+            "Financial/budget management", "Human resources management",
+            "International/global business", "Job search/application", "Job skill development",
+            "Labor relations", "Marketing/advertising", "Personnel training",
+            "Product or service creation/development", "Professional development for nonprofits",
+            "Program delivery", "Program evaluation", "Strategic planning",
+            "Technology/web assistance/training", "Transportation", "Volunteer management",
+            "Workforce development", "Workplace safety"
+        ],
+        "education": [
+            "Access for underrepresented populations", "Adult/lifelong learning",
+            "After-School programming", "Childcare", "Completion", "Developmental education (remedial)",
+            "Dropout prevention", "Early childhood development", "English as a second language",
+            "Information technology and computer literacy", "K-12 education", "Learning disabilities",
+            "Literacy", "Mentoring", "Military/veterans", "Postsecondary education",
+            "Professional development for teachers", "Retention", "School readiness",
+            "Sports/health/recreation", "STEM education", "Tutoring"
+        ],
+        "environmental_sustainability": [
+            "Biosecurity", "Brownfields/site identification/cleanup", "Climate literacy",
+            "Energy - direct service/implementation", "Energy - evaluation", "Energy - public education",
+            "Energy - strategic actions for efficiency", "Environmental education", "Food accessibility",
+            "Food advocacy", "Food production", "Food safety", "Land banks/conservation designations",
+            "Land use planning", "Natural resources", "Other agriculture", "Pollution - correction",
+            "Pollution - prevention", "Preservation", "Science literacy of the public", "Sustainability",
+            "Water quality", "Water use reduction"
+        ],
+        "government_and_public_safety": [
+            "Child advocacy", "Citizenship", "Crime prevention", "Criminal justice/corrections",
+            "Delinquency prevention", "Gangs", "Legal aid services", "Public policy analysis",
+            "Public safety and security - evaluation", "Public safety and security - implementation",
+            "Public safety and security - planning", "Public safety and security - training",
+            "Re-Entry programs"
+        ],
+        "health_and_wellness": [
+            "Addiction treatment/prevention", "Exercise/active living", "Health and wellness education/training",
+            "Health disparities/access", "Healthcare provision/assessment", "Home safety", "Insurance education",
+            "Mental health care", "Mental health education", "Nutrition", "Obesity", "Parenting",
+            "Parks and recreation sites - design", "Parks and recreation sites - renewal",
+            "Parks and recreation sites - creation", "Parks and recreation sites - access",
+            "Physical disabilities", "Sexual health", "Sport, recreation athletics"
+        ],
+        "social_issues": [
+            "Animal welfare/education", "At-Risk youth", "Child abuse/neglect", "Civil rights",
+            "Cultural understanding", "Disability issues", "Disaster preparedness", "Domestic violence",
+            "Equity, diversity, or inclusion", "Family services", "Homelessness", "Housing",
+            "Human rights", "Hunger", "Immigration issues/services", "Incarceration", "LBGTQ issues",
+            "Poverty", "Religious understanding", "Senior/elder issues", "Voting registration"
+        ]
+    },
+    "goals": {
+        "outputs": [
+            "Board(s) - Campus representation", "Camp(s)", "Clinic(s)", "Consultation - Pro bono",
+            "Database(s) - Community-focused", "Drive(s) (e.g., clothing, food)",
+            "Education - Adult (e.g., non-credit, non-degree, personal improvement)",
+            "Education - Continuing (e.g., non-degree certification, CEU, professional development)",
+            "Event(s) - Athletic or recreational", "Event(s) - Cultural", "Expert testimony(ies)",
+            "Media interview(s), op-ed article(s), editorial(s)", "Lecture(s), community speech(es)",
+            "Policy(ies)", "Volunteer support(s) - community event(s) or program(s)", "Website(s) - Community"
+        ],
+        "institutional_outcomes": [
+            "Funding - Activity", "Interdisciplinary opportunity(ies)", "Town-Gown relationship(s)",
+            "Community participation in campus event(s)", "Student - Academic content",
+            "Student - Civic knowledge", "Student - Enrollment from partner communities",
+            "Student - Ethical reasoning and action", "Student - Intercultural knowledge",
+            "Student - Lifelong learning foundations and skills", "Student - Personal growth",
+            "Student - Professional growth", "Student - Retention"
+        ],
+        "community_impacts": [
+            "Campus relationship(s) or partnerships", "Connection(s) to other community group(s)/network(s)",
+            "Operation(s) (e.g., accounting, data systems)", "Insight(s) into partner organization program(s)",
+            "Public Recognition", "Resource quantity(ies)", "Resource use(s)", "Capacity to serve client(s)",
+            "Service(s) to client(s)", "Volunteer number(s)"
+        ]
+    }
+}

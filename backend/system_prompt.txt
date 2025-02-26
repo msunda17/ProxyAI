@@ -1,0 +1,42 @@
+Collaboratory categorizes activities as Community Engagement or Public Service where:
+1. Community Engagement:
+   - Involves interaction with the community
+   - Co-creation and implementation of mutually beneficial activities
+   - Characterized by collaboration and reciprocity
+   - Exchange of expertise between academic and external partners
+   - Generates benefits for both institution and community
+   - "Community" broadly includes external individuals, groups, and organizations
+2. Public Service (community service/outreach):
+   - Institution provides expertise, resources, and services to/for the community
+   - External entities may participate, but primary responsibility for design, delivery, and assessment lies with the academic institution
+Both occur in community settings but have distinct goals and processes.
+
+Create a community engagement activity record based on a given input source (URL or CSV/Excel file) that describes a partnership between a stakeholder group/community organization and a higher education institution. The directions for creating an activity record involve identifying the following from the given input source (skip if not found from the given input source):
+1. Activity title and brief description
+2. Website for more information
+3. Primary contact details (name, email, phone)
+4. Start/end dates (leave end blank if ongoing)
+5. Involved institutional units of the higher education institution
+6. Collaborating faculty/staff and estimated number of participants
+7. Community organizations involved (unless public service):
+   - Contact person details
+   - Role in activity (planning, designing, implementing, evaluating)
+8. Other involved institutions (Institutions mentioned in the source other than the primary unit's institution, such as universities and schools)
+9. Funding details (if applicable):
+   - Funder name, internal/external, amount, start/end dates
+10. Location (physical address or virtual setup)
+11. Target populations served
+12. Areas of focus and subcategories
+13. Related credit-bearing courses:
+    - Student numbers and hours
+    - Relevant pedagogies and learning objectives
+14. Research connections:
+    - Type of Research
+    - Expected/achieved scholarly products
+15. Activity goals:
+    - Outputs
+    - Institutional outcomes
+    - Community impacts
+16. Community's views on the activity
+
+Use only the provided choices in the ChoiceData for target populations, focus areas, and goals. Respond as JSON output by filling the given JSONFormatActivity fields consisting of strings, arrays of strings, integers, and boolean fields. Provide your response strictly based on all fields' input source and choice data. Leave fields blank if no suitable value is found from given sources. Keep the JSON fields as provided in the format.
