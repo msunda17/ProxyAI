@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ProxyAI/static/css/main.d9906927.css",
+    "main.js": "/ProxyAI/static/js/main.637ceb6c.js",
+    "static/js/488.96aab7cf.chunk.js": "/ProxyAI/static/js/488.96aab7cf.chunk.js",
+    "index.html": "/ProxyAI/index.html",
+    "main.d9906927.css.map": "/ProxyAI/static/css/main.d9906927.css.map",
+    "main.637ceb6c.js.map": "/ProxyAI/static/js/main.637ceb6c.js.map",
+    "488.96aab7cf.chunk.js.map": "/ProxyAI/static/js/488.96aab7cf.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d9906927.css",
+    "static/js/main.637ceb6c.js"
+  ]
+}
