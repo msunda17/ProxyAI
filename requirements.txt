@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pandas
+requests
+beautifulsoup4
+langchain
+langchain_openai
+wandb
+weave
