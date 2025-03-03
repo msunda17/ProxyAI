@@ -16,9 +16,16 @@ import weave
 import uvicorn
 
 app = FastAPI()
-# Add env OPENAI_API_KEY if not present
+
+# Retrieve API keys from environment variables
 openai_api_key = os.getenv("OPENAI_API_KEY")
 wandb_key = os.getenv("WANDB_KEY")
+
+# Ensure API keys are provided
+if not openai_api_key:
+    raise ValueError("Missing OPENAI_API_KEY environment variable.")
+if not wandb_key:
+    raise ValueError("Missing WANDB_KEY environment variable.")
 
 # Initialize Weights & Biases
 wandb.login(key=wandb_key)
@@ -33,18 +40,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load structured data
-with open("choice_data.json", "r") as f:
-    choice_data = json.load(f)
+# Function to fetch files from a GitHub repository
+GITHUB_REPO_URL = "https://github.com/msunda17/ProxyAI/backend/"
 
-with open("json_format.json", "r") as f:
-    json_format = json.load(f)
+def fetch_github_file(file_name):
+    url = GITHUB_REPO_URL + file_name
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        if file_name.endswith(".json"):
+            return response.json()
+        return response.text
+    except Exception as e:
+        raise ValueError(f"Error fetching {file_name}: {str(e)}")
 
-with open("system_prompt.txt", "r") as f:
-    system_prompt = f.read()
-
-with open("collaboratory_activity_form.json", "r") as f:
-    collaboratory_form = json.load(f)
+# Load structured data from GitHub
+choice_data = fetch_github_file("choice_data.json")
+json_format = fetch_github_file("json_format.json")
+system_prompt = fetch_github_file("system_prompt.txt")
+collaboratory_form = fetch_github_file("collaboratory_activity_form.json")
 
 # FAISS for similarity-based retrieval
 embeddings = OpenAIEmbeddings()

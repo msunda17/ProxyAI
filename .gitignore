@@ -2,10 +2,6 @@
 
 # dependencies
 /backend/.venv/
-/backend/choice_data_index
-/backend/collaboratory_activity_form_index
-/backend/json_format_index
-/backend/system_prompt_index
 /backend/wandb
 /node_modules
 /.pnp
