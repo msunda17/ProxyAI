@@ -18,9 +18,10 @@ import uvicorn
 app = FastAPI()
 # Add env OPENAI_API_KEY if not present
 openai_api_key = os.getenv("OPENAI_API_KEY")
+wandb_key = os.getenv("WANDB_KEY")
 
 # Initialize Weights & Biases
-wandb.login(key=openai_api_key)
+wandb.login(key=wandb_key)
 wandb.init(project="proxyai")
 
 # Enable CORS for frontend communication
