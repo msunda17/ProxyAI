@@ -16,8 +16,11 @@ import weave
 import uvicorn
 
 app = FastAPI()
+# Add env OPENAI_API_KEY if not present
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize Weights & Biases
+wandb.login(key=openai_api_key)
 wandb.init(project="proxyai")
 
 # Enable CORS for frontend communication
@@ -50,7 +53,6 @@ system_retriever = FAISS.load_local("system_prompt_index", embeddings, allow_dan
 collaboratory_retriever = FAISS.load_local("collaboratory_activity_form_index", embeddings, allow_dangerous_deserialization=True)
 
 # Initialize OpenAI Model
-openai_api_key = os.getenv("OPENAI_API_KEY", "your-api-key-here")
 llm = ChatOpenAI(model="gpt-4o", temperature=0, openai_api_key=openai_api_key)
 
 # Function to scrape text from a URL
@@ -110,7 +112,7 @@ def generate_activity(input_data: InputData):
     extracted_json = extract_json_from_string(structured_response.content)
     
     wandb.log({"ai_message": structured_response.content, "structured_response": extracted_json})
-    # weave.log({"ai_message": structured_response.content, "structured_response": extracted_json})
+    weave.log({"ai_message": structured_response.content, "structured_response": extracted_json})
     
     return {"ai_message": structured_response.content, "structured_response": extracted_json}
 
