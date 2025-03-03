@@ -41,7 +41,7 @@ app.add_middleware(
 )
 
 # Function to fetch files from a GitHub repository
-GITHUB_REPO_URL = "https://github.com/msunda17/ProxyAI/backend/"
+GITHUB_REPO_URL = "https://github.com/msunda17/blob/main/ProxyAI/backend/"
 
 def fetch_github_file(file_name):
     url = GITHUB_REPO_URL + file_name
