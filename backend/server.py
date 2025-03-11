@@ -40,47 +40,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Function to fetch files from a GitHub repository
-GITHUB_REPO_URL = "https://github.com/msunda17/ProxyAI/blob/main/backend/"
+# Define local file paths
+DATA_FOLDER = os.path.join(os.path.dirname(__file__), "data")
 
-def fetch_github_file(file_name):
-    url = GITHUB_REPO_URL + file_name
-    try:
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        if file_name.endswith(".json"):
-            return response.json()
-        return response.text
-    except Exception as e:
-        raise ValueError(f"Error fetching {file_name}: {str(e)}")
+# Function to load local files
+def load_local_file(file_name):
+    file_path = os.path.join(DATA_FOLDER, file_name)
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File not found: {file_path}")
+    with open(file_path, "r", encoding="utf-8") as file:
+        return json.load(file) if file_name.endswith(".json") else file.read()
 
-# Function to fetch embeddings from GitHub if not found locally
-def fetch_github_embedding(index_name):
-    local_path = f"{index_name}/"
-    if not os.path.exists(local_path):
-        try:
-            zip_url = GITHUB_REPO_RAW_URL + f"{index_name}.zip"
-            zip_path = f"/tmp/{index_name}.zip"
-            response = requests.get(zip_url, timeout=10, stream=True)
-            response.raise_for_status()
-            with open(zip_path, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-            shutil.unpack_archive(zip_path, local_path)
-            print(f"✅ Downloaded and extracted {index_name} embeddings from GitHub.")
-        except Exception as e:
-            raise ValueError(f"Error fetching {index_name} embeddings: {str(e)}")
+# Load structured data from local files
+choice_data = load_local_file("choice_data.json")
+json_format = load_local_file("json_format.json")
+system_prompt = load_local_file("system_prompt.txt")
+collaboratory_form = load_local_file("collaboratory_activity_form.json")
 
-# Load structured data from GitHub
-choice_data = fetch_github_file("choice_data.json")
-json_format = fetch_github_file("json_format.json")
-system_prompt = fetch_github_file("system_prompt.txt")
-collaboratory_form = fetch_github_file("collaboratory_activity_form.json")
-
-# Load embeddings, fetching from GitHub if necessary
+# Load FAISS embeddings from local storage
 embeddings = OpenAIEmbeddings()
-for index in ["choice_data_index", "json_format_index", "system_prompt_index", "collaboratory_activity_form_index"]:
-    fetch_github_embedding(index)
+choice_retriever = FAISS.load_local("data/choice_data_index", embeddings, allow_dangerous_deserialization=True)
+json_retriever = FAISS.load_local("data/json_format_index", embeddings, allow_dangerous_deserialization=True)
+system_retriever = FAISS.load_local("data/system_prompt_index", embeddings, allow_dangerous_deserialization=True)
+collaboratory_retriever = FAISS.load_local("data/collaboratory_activity_form_index", embeddings, allow_dangerous_deserialization=True)
 
 # Initialize OpenAI Model
 llm = ChatOpenAI(model="gpt-4o", temperature=0, openai_api_key=openai_api_key)
@@ -142,7 +124,6 @@ def generate_activity(input_data: InputData):
     extracted_json = extract_json_from_string(structured_response.content)
     
     wandb.log({"ai_message": structured_response.content, "structured_response": extracted_json})
-    weave.log({"ai_message": structured_response.content, "structured_response": extracted_json})
     
     return {"ai_message": structured_response.content, "structured_response": extracted_json}
 
