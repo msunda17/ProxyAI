@@ -14,8 +14,10 @@ import os
 import wandb
 import weave
 import uvicorn
+from dotenv import load_dotenv
 
 app = FastAPI()
+load_dotenv()
 
 # Retrieve API keys from environment variables
 openai_api_key = os.getenv("OPENAI_API_KEY")

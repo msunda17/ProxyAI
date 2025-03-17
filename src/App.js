@@ -14,6 +14,8 @@ export default function ChatInterface() {
   const [aiMessage, setAiMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const url = "http://0.0.0.0:8000/"
+
   const handleSubmit = async () => {
     setLoading(true);
     const formData = new FormData();
@@ -21,7 +23,7 @@ export default function ChatInterface() {
     if (input) formData.append("url", input);
 
     try {
-      const res = await fetch("http://localhost:8000/generate_activity", {
+      const res = await fetch(url + "generate_activity", {
         method: "POST",
         body: JSON.stringify({ url: input }),
         headers: {
