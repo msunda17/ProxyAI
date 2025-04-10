@@ -1,5 +1,24 @@
 {
-    "target_population": [
+    "sustainableDevelopmentGoals": [
+        "SDG 1: No Poverty",
+        "SDG 2: Zero Hunger",
+        "SDG 3: Good Health and WellBeing",
+        "SDG 4: Quality Education",
+        "SDG 5: Gender Equality",
+        "SDG 6: Clean Water and Sanitation",
+        "SDG 7: Affordable and Clean Energy",
+        "SDG 8: Decent Work and Economic Growth",
+        "SDG 9: Industry, Innovation & Infrastructure",
+        "SDG 10: Reduced Inequalities",
+        "SDG 11: Sustainable Cities and Communities",
+        "SDG 12: Responsible Consumption & Production",
+        "SDG 13: Climate Action",
+        "SDG 14: Life Below Water",
+        "SDG 15: Life on Land",
+        "SDG 16: Peace, Justice & Strong Institutions",
+        "SDG 17: Partnership for the Goals"
+    ],
+    "targetPopulation": [
         "Infants (0-5)", "Children (6-11)", "Youth (12-17)", "Young Adults (18-24)",
         "Adults (25-64)", "Older Adults (65+)", "Men", "Women", "Transgender",
         "College Students", "Families", "Individuals with Disabilities", "General Public",
@@ -7,13 +26,14 @@
         "African American", "Asian-Pacific Islander", "Immigrants", "Indigenous",
         "Lesbian, Gay, and Bisexual", "Refugees", "Hispanic, Latino, or Spanish Origin", "White"
     ],
-    "areas_of_focus": {
-        "arts_and_culture": [
+    "focusAreaCategories": ["artsAndCulture", "communityAndEconomicDevelopment", "education", "environmentalSustainability", "governmentAndPublicSafety", "healthAndWellness", "socialIssues"],
+    "focusAreasWithinCategories": {
+        "artsAndCulture": [
             "Cultural appreciation/celebration", "Cultural institutions", "Dance",
             "Design", "Literary arts", "Local history", "Media Arts", "Music",
             "Public arts", "Theatre/Performance", "Visual arts"
         ],
-        "community_and_economic_development": [
+        "communityAndEconomicDevelopment": [
             "Business development (<50 employees)", "Business development (50-249 employees)",
             "Business development (250+ employees)", "Business leadership/management development",
             "Business planning", "Business startup", "Career and professional development",
@@ -35,7 +55,7 @@
             "Professional development for teachers", "Retention", "School readiness",
             "Sports/health/recreation", "STEM education", "Tutoring"
         ],
-        "environmental_sustainability": [
+        "environmentalSustainability": [
             "Biosecurity", "Brownfields/site identification/cleanup", "Climate literacy",
             "Energy - direct service/implementation", "Energy - evaluation", "Energy - public education",
             "Energy - strategic actions for efficiency", "Environmental education", "Food accessibility",
@@ -44,14 +64,14 @@
             "Pollution - prevention", "Preservation", "Science literacy of the public", "Sustainability",
             "Water quality", "Water use reduction"
         ],
-        "government_and_public_safety": [
+        "governmentAndPublicSafety": [
             "Child advocacy", "Citizenship", "Crime prevention", "Criminal justice/corrections",
             "Delinquency prevention", "Gangs", "Legal aid services", "Public policy analysis",
             "Public safety and security - evaluation", "Public safety and security - implementation",
             "Public safety and security - planning", "Public safety and security - training",
             "Re-Entry programs"
         ],
-        "health_and_wellness": [
+        "healthAndWellness": [
             "Addiction treatment/prevention", "Exercise/active living", "Health and wellness education/training",
             "Health disparities/access", "Healthcare provision/assessment", "Home safety", "Insurance education",
             "Mental health care", "Mental health education", "Nutrition", "Obesity", "Parenting",
@@ -59,7 +79,7 @@
             "Parks and recreation sites - creation", "Parks and recreation sites - access",
             "Physical disabilities", "Sexual health", "Sport, recreation athletics"
         ],
-        "social_issues": [
+        "socialIssues": [
             "Animal welfare/education", "At-Risk youth", "Child abuse/neglect", "Civil rights",
             "Cultural understanding", "Disability issues", "Disaster preparedness", "Domestic violence",
             "Equity, diversity, or inclusion", "Family services", "Homelessness", "Housing",
@@ -77,7 +97,7 @@
             "Media interview(s), op-ed article(s), editorial(s)", "Lecture(s), community speech(es)",
             "Policy(ies)", "Volunteer support(s) - community event(s) or program(s)", "Website(s) - Community"
         ],
-        "institutional_outcomes": [
+        "institutionalOutcomes": [
             "Funding - Activity", "Interdisciplinary opportunity(ies)", "Town-Gown relationship(s)",
             "Community participation in campus event(s)", "Student - Academic content",
             "Student - Civic knowledge", "Student - Enrollment from partner communities",
@@ -85,7 +105,7 @@
             "Student - Lifelong learning foundations and skills", "Student - Personal growth",
             "Student - Professional growth", "Student - Retention"
         ],
-        "community_impacts": [
+        "communityImpacts": [
             "Campus relationship(s) or partnerships", "Connection(s) to other community group(s)/network(s)",
             "Operation(s) (e.g., accounting, data systems)", "Insight(s) into partner organization program(s)",
             "Public Recognition", "Resource quantity(ies)", "Resource use(s)", "Capacity to serve client(s)",

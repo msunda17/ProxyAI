@@ -9,3 +9,4 @@ langchain_openai
 wandb
 weave
 faiss-cpu
+python-dotenv

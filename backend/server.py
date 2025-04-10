@@ -22,6 +22,7 @@ load_dotenv()
 # Retrieve API keys from environment variables
 openai_api_key = os.getenv("OPENAI_API_KEY")
 wandb_key = os.getenv("WANDB_KEY")
+env = os.getenv("ENV", "prod")
 
 # Ensure API keys are provided
 if not openai_api_key:
@@ -45,24 +46,10 @@ app.add_middleware(
 # Define local file paths
 DATA_FOLDER = os.path.join(os.path.dirname(__file__), "data")
 
-# Function to load local files
-def load_local_file(file_name):
-    file_path = os.path.join(DATA_FOLDER, file_name)
-    if not os.path.exists(file_path):
-        raise FileNotFoundError(f"File not found: {file_path}")
-    with open(file_path, "r", encoding="utf-8") as file:
-        return json.load(file) if file_name.endswith(".json") else file.read()
-
-# Load structured data from local files
-choice_data = load_local_file("choice_data.json")
-json_format = load_local_file("json_format.json")
-system_prompt = load_local_file("system_prompt.txt")
-collaboratory_form = load_local_file("collaboratory_activity_form.json")
-
 # Load FAISS embeddings from local storage
 embeddings = OpenAIEmbeddings()
-choice_retriever = FAISS.load_local("data/choice_data_index", embeddings, allow_dangerous_deserialization=True)
-json_retriever = FAISS.load_local("data/json_format_index", embeddings, allow_dangerous_deserialization=True)
+choice_retriever = FAISS.load_local("data/choice_data_enums_index", embeddings, allow_dangerous_deserialization=True)
+model_retriever = FAISS.load_local("data/pydantic_model_index", embeddings, allow_dangerous_deserialization=True)
 system_retriever = FAISS.load_local("data/system_prompt_index", embeddings, allow_dangerous_deserialization=True)
 collaboratory_retriever = FAISS.load_local("data/collaboratory_activity_form_index", embeddings, allow_dangerous_deserialization=True)
 
@@ -77,6 +64,7 @@ def scrape_url_content(url):
         soup = BeautifulSoup(response.text, "html.parser")
         paragraphs = soup.find_all("p")
         article_text = "\n".join([para.get_text() for para in paragraphs])
+        print("Article Text: ", article_text)
         return article_text if article_text else "No content extracted from URL."
     except Exception as e:
         return f"Error extracting content: {str(e)}"
@@ -111,12 +99,12 @@ def generate_activity(input_data: InputData):
     
     # Retrieve relevant texts
     choice_text = retrieve_text(input_text, choice_retriever)
-    json_text = retrieve_text(input_text, json_retriever)
+    model_text = retrieve_text(input_text, model_retriever)
     system_text = retrieve_text(input_text, system_retriever)
     collaboratory_text = retrieve_text(input_text, collaboratory_retriever)
     
     # Combine retrieved content
-    full_context = f"{input_text} \n {choice_text} \n {json_text} \n {system_text} \n {collaboratory_text}"
+    full_context = f"{input_text} \n {choice_text} \n {model_text} \n {system_text} \n {collaboratory_text}"
     structured_response = llm.invoke(full_context)
     
     # Print AI Message in logs
@@ -141,4 +129,7 @@ def process_file(file):
     return df.to_json()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile="key.pem", ssl_certfile="cert.pem")
+    if env == "prod":
+        uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile="proxyai.pem", ssl_certfile="proxyai.crt")
+    else:
+        uvicorn.run(app, host="0.0.0.0", port=8000)
