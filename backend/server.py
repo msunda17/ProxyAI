@@ -132,4 +132,4 @@ if __name__ == "__main__":
     if env == "prod":
         uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile="proxyai.pem", ssl_certfile="proxyai.crt")
     else:
-        uvicorn.run(app, host="0.0.0.0", port=8000)
+        uvicorn.run(app, host="localhost", port=8000)
