@@ -59,7 +59,6 @@ Use values from the GoalInstitutionalOutcome enum, including sub-enums like:
 Use values from the GoalCommunityImpact enum.
 
 ⸻
-
 Instruction:
 Based only on the content of the article, classify the described activity as either Community Engagement or Public Service.
 
@@ -68,9 +67,11 @@ Ask:
 
 Mutual Benefit
 Is there clear evidence that both ASU and an external community-based group (e.g., nonprofit, government agency, school, local population) benefit from the activity?
+Are mutual benefits articulated by both the institution and the external community group, organization, agency, or neighborhood?
 
 Knowledge Exchange
 Is there a two-way exchange of knowledge, expertise, or co-creation between ASU and the external community?
+Does the design or implementation of the Activity include an exchange of knowledge or expertise with the external community group, organization, agency, or neighborhood?
 
 ➡️ Use only what's explicitly written in the article. Do not use outside knowledge or make assumptions.
 
