@@ -15,6 +15,7 @@ import wandb
 import weave
 import uvicorn
 from dotenv import load_dotenv
+from PyPDF2 import PdfReader
 
 app = FastAPI()
 load_dotenv()
@@ -61,13 +62,39 @@ def scrape_url_content(url):
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
-        soup = BeautifulSoup(response.text, "html.parser")
-        paragraphs = soup.find_all("p")
-        article_text = "\n".join([para.get_text() for para in paragraphs])
-        print("Article Text: ", article_text)
-        return article_text if article_text else "No content extracted from URL."
+
+        # Check if the URL points to a PDF file
+        if "application/pdf" in response.headers.get("Content-Type", ""):
+            # Save the PDF locally
+            pdf_path = "temp.pdf"
+            with open(pdf_path, "wb") as pdf_file:
+                pdf_file.write(response.content)
+
+            # Extract text from the PDF
+            pdf_text = extract_text_from_pdf(pdf_path)
+
+            # Clean up the temporary file
+            os.remove(pdf_path)
+
+            return pdf_text if pdf_text else "No content extracted from PDF."
+        else:
+            # Handle non-PDF content (e.g., HTML)
+            soup = BeautifulSoup(response.text, "html.parser")
+            paragraphs = soup.find_all("p")
+            article_text = "\n".join([para.get_text() for para in paragraphs])
+            return article_text if article_text else "No content extracted from URL."
     except Exception as e:
         return f"Error extracting content: {str(e)}"
+
+def extract_text_from_pdf(pdf_path):
+    try:
+        reader = PdfReader(pdf_path)
+        text = ""
+        for page in reader.pages:
+            text += page.extract_text()
+        return text
+    except Exception as e:
+        return f"Error extracting text from PDF: {str(e)}"
 
 # Function to extract JSON from AI response
 def extract_json_from_string(response_text):
@@ -132,4 +159,4 @@ if __name__ == "__main__":
     if env == "prod":
         uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile="proxyai.pem", ssl_certfile="proxyai.crt")
     else:
-        uvicorn.run(app, host="0.0.0.0", port=8000)
+        uvicorn.run(app, host="localhost", port=8000)

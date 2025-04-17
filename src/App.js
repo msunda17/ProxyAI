@@ -14,7 +14,7 @@ export default function ChatInterface() {
   const [aiMessage, setAiMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const url = "http://0.0.0.0:8000/"
+  const url = "http://localhost:8000/"
 
   const handleSubmit = async () => {
     setLoading(true);

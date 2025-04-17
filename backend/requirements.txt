@@ -1,3 +1,4 @@
+dotenv
 fastapi
 uvicorn
 pandas
@@ -10,3 +11,4 @@ wandb
 weave
 faiss-cpu
 python-dotenv
+pypdf2
