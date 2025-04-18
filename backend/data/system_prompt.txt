@@ -59,8 +59,23 @@ Use values from the GoalInstitutionalOutcome enum, including sub-enums like:
 Use values from the GoalCommunityImpact enum.
 
 ⸻
-Instruction:
+Instruction for activity type:
 Based only on the content of the article, classify the described activity as either Community Engagement or Public Service.
+
+⚠️ Clarification Notes:
+Public access or external involvement does not imply mutual benefit unless both sides are explicitly shown to benefit.
+
+Knowledge exchange must go both ways: ASU giving and also learning from or building with the external community.
+
+Intended beneficiaries (like app users, concert audiences, or event attendees) do not count as collaborators.
+
+Focus groups, surveys, or public outreach do not count as knowledge exchange unless there's ongoing co-creation or shared implementation.
+
+Academic presentations, performances, or services provided to the public are Public Service unless there’s evidence of a reciprocal partnership.
+
+External collaborators must be non-academic and community-based (e.g., local nonprofits, schools, public agencies).
+
+Do not use any external information, limit yourself to the context of the given article ONLY.
 
 🧠 Decision Criteria:
 Ask:
@@ -79,21 +94,6 @@ Does the design or implementation of the Activity include an exchange of knowled
 If both answers are YES → Label as Community Engagement
 
 If either answer is NO → Label as Public Service
-
-⚠️ Clarification Notes:
-Public access or public impact alone is not enough to imply mutual benefit. The external group must be actively involved.
-
-Intended beneficiaries (like app users, concert audiences, or event attendees) do not count as collaborators.
-
-Focus groups, surveys, or public outreach do not count as knowledge exchange unless there's ongoing co-creation or shared implementation.
-
-Academic presentations, performances, or services provided to the public are Public Service unless there’s evidence of a reciprocal partnership.
-
-External collaborators must be non-academic and community-based (e.g., local nonprofits, schools, public agencies).
-
-Look for clear signs of collaboration, co-planning, or shared goals.
-
-Do not use any external information, limit yourself to the context of the given article ONLY.
 ⸻
 
 🔍 Treat All These Fields as Checkbox Fields
