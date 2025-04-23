@@ -15,6 +15,7 @@ import wandb
 import weave
 import uvicorn
 from dotenv import load_dotenv
+from urllib.parse import urljoin
 
 app = FastAPI()
 load_dotenv()
@@ -56,6 +57,22 @@ collaboratory_retriever = FAISS.load_local("data/collaboratory_activity_form_ind
 # Initialize OpenAI Model
 llm = ChatOpenAI(model="gpt-4o", temperature=0, openai_api_key=openai_api_key)
 
+def get_profile_info(link):
+    response = requests.get(link, timeout=10)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    name_tag = soup.find("h1")
+    name = name_tag.get_text(strip=True) if name_tag else "Name not found"
+
+    email_tag = soup.find("a", href=re.compile(r"mailto:"))
+    email = email_tag.get_text(strip=True) if email_tag else "Email not found"
+
+    phone_tag = soup.find(string=re.compile(r"\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}"))
+    phone = phone_tag.strip() if phone_tag else "Phone not found"
+ 
+    text=name + "\n" + email + "\n" + phone
+    return text
+
 def scrape_url_content(url):
     try:
         response = requests.get(url, timeout=10)
@@ -63,6 +80,19 @@ def scrape_url_content(url):
         soup = BeautifulSoup(response.text, "html.parser")
         paragraphs = soup.find_all("p")
         article_text = "\n".join([para.get_text() for para in paragraphs])
+        
+        # Extract and list all hyperlinks within <p> tags
+        links = []
+        for para in paragraphs:
+            for a in para.find_all("a", href=True):
+                href = urljoin(url, a['href'])  # Convert to absolute URL
+                if "search.asu.edu" in href:
+                    links.append(href)
+        
+        if links:
+            for link in links:
+                article_text += get_profile_info(link)
+            
         tag_elements = soup.select("div.node-body-categories .view-content a.btn-tag")
         upper_tags = soup.select("div.node-body-categories .view-content a.btn-tag.btn-gat-alt-white")
         tag_elements.extend(upper_tags)
