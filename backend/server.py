@@ -56,7 +56,6 @@ collaboratory_retriever = FAISS.load_local("data/collaboratory_activity_form_ind
 # Initialize OpenAI Model
 llm = ChatOpenAI(model="gpt-4o", temperature=0, openai_api_key=openai_api_key)
 
-# Function to scrape text from a URL
 def scrape_url_content(url):
     try:
         response = requests.get(url, timeout=10)
@@ -64,8 +63,14 @@ def scrape_url_content(url):
         soup = BeautifulSoup(response.text, "html.parser")
         paragraphs = soup.find_all("p")
         article_text = "\n".join([para.get_text() for para in paragraphs])
+        tag_elements = soup.select("div.node-body-categories .view-content a.btn-tag")
+        upper_tags = soup.select("div.node-body-categories .view-content a.btn-tag.btn-gat-alt-white")
+        tag_elements.extend(upper_tags)
+        tags = [tag.get_text(strip=True) for tag in tag_elements]
+        article_text += "\nTags: " + ", ".join(tags)
         print("Article Text: ", article_text)
         return article_text if article_text else "No content extracted from URL."
+
     except Exception as e:
         return f"Error extracting content: {str(e)}"
 
@@ -130,6 +135,6 @@ def process_file(file):
 
 if __name__ == "__main__":
     if env == "prod":
-        uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile="proxyai.pem", ssl_certfile="proxyai.crt")
+        uvicorn.run(app, host="0.0.0.0", port=8888, ssl_keyfile="proxyai.pem", ssl_certfile="proxyai.crt")
     else:
-        uvicorn.run(app, host="localhost", port=8000)
+        uvicorn.run(app, host="localhost", port=8888)
