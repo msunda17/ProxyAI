@@ -73,28 +73,34 @@ def get_profile_info(link):
     text=name + "\n" + email + "\n" + phone
     return text
 
+feature_flag=False
+
 def scrape_url_content(url):
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
+        if ".asu.edu" in url:
+            feature_flag=True
+        else:
+            feature_flag=False
+          
         soup = BeautifulSoup(response.text, "html.parser")
         paragraphs = soup.find_all("p")
         article_text = "\n".join([para.get_text() for para in paragraphs])
         
-        # Extract and list all hyperlinks within <p> tags
-        links = []
-        for para in paragraphs:
-            for a in para.find_all("a", href=True):
-                href = urljoin(url, a['href'])  # Convert to absolute URL
-                if "search.asu.edu" in href:
-                    links.append(href)
-        
-        if links:
-            for link in links:
-                article_text += get_profile_info(link)
+        if feature_flag==True:
+            links = []
+            for para in paragraphs:
+                for a in para.find_all("a", href=True):
+                    href = urljoin(url, a['href'])  # Convert to absolute URL
+                    if "search.asu.edu" in href:
+                        links.append(href)           
+            if links:
+                for link in links:
+                    article_text += get_profile_info(link)
             
         tag_elements = soup.select("div.node-body-categories .view-content a.btn-tag")
-        upper_tags = soup.select("div.node-body-categories .view-content a.btn-tag.btn-gat-alt-white")
+        upper_tags = soup.select("div.node-body-categories .view-content a.btn-tag.btn-gat-alt-white") 
         tag_elements.extend(upper_tags)
         tags = [tag.get_text(strip=True) for tag in tag_elements]
         article_text += "\nTags: " + ", ".join(tags)

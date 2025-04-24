@@ -109,5 +109,4 @@ Therefore:
 	•	All selected values must be an exact string match from the enum (case-sensitive, punctuation-sensitive).
 	•	Do not attempt formatting corrections.
 	•	Do not substitute with general terms or synonyms.
-	•   If "phone" field in JSON is "" then set value of "phone" field as "0000000000"
-	•   If "email" is blank and name is provided, use ASU’s public directory (search.asu.edu) to retrieve the person’s email and phone.
+	•   If "phone" field in JSON is "" then set value of "phone" field as "0000000000" only for ASU primary contact, not for other primary contacts
