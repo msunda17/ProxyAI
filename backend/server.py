@@ -73,22 +73,19 @@ def get_profile_info(link):
     text=name + "\n" + email + "\n" + phone
     return text
 
-feature_flag=False
+all_tags=[]
 
 def scrape_url_content(url):
+    global actualUrl
     try:
+        actualUrl=url
         response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        if ".asu.edu" in url:
-            feature_flag=True
-        else:
-            feature_flag=False
-          
+        response.raise_for_status()          
         soup = BeautifulSoup(response.text, "html.parser")
         paragraphs = soup.find_all("p")
         article_text = "\n".join([para.get_text() for para in paragraphs])
         
-        if feature_flag==True:
+        if ".asu.edu" in url:
             links = []
             for para in paragraphs:
                 for a in para.find_all("a", href=True):
@@ -99,10 +96,9 @@ def scrape_url_content(url):
                 for link in links:
                     article_text += get_profile_info(link)
             
-        tag_elements = soup.select("div.node-body-categories .view-content a.btn-tag")
-        upper_tags = soup.select("div.node-body-categories .view-content a.btn-tag.btn-gat-alt-white") 
-        tag_elements.extend(upper_tags)
+        tag_elements = soup.select("div.node-body-categories .view-content a.btn-tag") 
         tags = [tag.get_text(strip=True) for tag in tag_elements]
+        all_tags.extend(tags)  # Store all tags for later use
         article_text += "\nTags: " + ", ".join(tags)
         print("Article Text: ", article_text)
         return article_text if article_text else "No content extracted from URL."
@@ -110,13 +106,56 @@ def scrape_url_content(url):
     except Exception as e:
         return f"Error extracting content: {str(e)}"
 
+def extract_sdg_number(text):
+    match = re.search(r"SDG\s*0*(\d+)", text, re.IGNORECASE)
+    return f"SDG {int(match.group(1))}" if match else None
+
+def make_complete_json(json_text):
+    try:
+        if ".asu.edu" in actualUrl:
+            seen_sdg_numbers = set()
+            unique_programs = []
+            for item in json_text.get("programsOrInitiatives", []):
+                sdg_key = extract_sdg_number(item)
+                print("my sdg_key: ", sdg_key)
+                if sdg_key:
+                    if sdg_key.lower() not in seen_sdg_numbers:
+                        print('oh i came after sdg key')
+                        seen_sdg_numbers.add(sdg_key.lower())
+                        unique_programs.append(item)
+                    else:
+                        continue 
+                else:
+                    unique_programs.append(item)
+
+            for tag in all_tags:
+                if tag.lower().startswith("sdg"):
+                    sdg_key = extract_sdg_number(tag)
+                    if sdg_key and sdg_key.lower() not in seen_sdg_numbers:
+                        print('oh i came after sdg key2')
+                        unique_programs.append(tag) 
+                        seen_sdg_numbers.add(sdg_key.lower())
+
+            json_text["programsOrInitiatives"] = unique_programs
+
+            for tag in all_tags:
+                if tag.lower() in ["public service", "community engagement"]:
+                    json_text["activityType"] = tag
+                    break
+
+    except Exception as e:
+        return {"error": "Failed to update JSON response", "details": str(e)}
+
+    return json_text
+
 # Function to extract JSON from AI response
 def extract_json_from_string(response_text):
     try:
         match = re.search(r'```json\n(.*?)\n```', response_text, re.DOTALL)
         if match:
             json_text = match.group(1)
-            return json.loads(json_text)
+            complete_json=make_complete_json(json.loads(json_text))
+            return complete_json
     except json.JSONDecodeError as e:
         return {"error": "Failed to parse JSON response", "details": str(e)}
     return {"error": "No valid JSON found in response"}
@@ -153,7 +192,7 @@ def generate_activity(input_data: InputData):
     
     # Extract JSON from response
     extracted_json = extract_json_from_string(structured_response.content)
-    
+
     wandb.log({"ai_message": structured_response.content, "structured_response": extracted_json})
     
     return {"ai_message": structured_response.content, "structured_response": extracted_json}
