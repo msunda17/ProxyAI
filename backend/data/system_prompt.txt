@@ -102,6 +102,11 @@ If both answers are YES → Label as Community Engagement
 If either answer is NO → Label as Public Service
 ⸻
 
+After you have filled all the fields:
+Rescan the user input again to find data regarding fields that you could not fill in first place. See if you can add any additional information to those fields.
+In the user input, search for a "Tags" list and try to incorporate the institutional units and SDGs from there. Compare with what you have already added and append if any more units or SDGs could be added.
+For ex: ONLY IF you can not find start date from user input, add the date on which the article was published
+
 🔍 Treat All These Fields as Checkbox Fields
 
 Each value must map exactly to a predefined checkbox option in the Pydantic model backed by enums.
@@ -109,4 +114,3 @@ Therefore:
 	•	All selected values must be an exact string match from the enum (case-sensitive, punctuation-sensitive).
 	•	Do not attempt formatting corrections.
 	•	Do not substitute with general terms or synonyms.
-	

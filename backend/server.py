@@ -84,6 +84,12 @@ def scrape_url_content(url):
         soup = BeautifulSoup(response.text, "html.parser")
         paragraphs = soup.find_all("p")
         article_text = "\n".join([para.get_text() for para in paragraphs])
+        time_tag = soup.find('time')
+        if time_tag:
+            date_text = time_tag.get_text(strip=True)
+            article_text += f"Activity Published on Date: {date_text}\n"
+        else:
+            print("Date not found")
         
         if ".asu.edu" in url:
             links = []
@@ -100,6 +106,7 @@ def scrape_url_content(url):
         tags = [tag.get_text(strip=True) for tag in tag_elements]
         all_tags.extend(tags)  # Store all tags for later use
         article_text += "\nTags: " + ", ".join(tags)
+        article_text += "\nActivity Website: " + url
         print("Article Text: ", article_text)
         return article_text if article_text else "No content extracted from URL."
 
@@ -117,10 +124,8 @@ def make_complete_json(json_text):
             unique_programs = []
             for item in json_text.get("programsOrInitiatives", []):
                 sdg_key = extract_sdg_number(item)
-                print("my sdg_key: ", sdg_key)
                 if sdg_key:
                     if sdg_key.lower() not in seen_sdg_numbers:
-                        print('oh i came after sdg key')
                         seen_sdg_numbers.add(sdg_key.lower())
                         unique_programs.append(item)
                     else:
@@ -132,7 +137,6 @@ def make_complete_json(json_text):
                 if tag.lower().startswith("sdg"):
                     sdg_key = extract_sdg_number(tag)
                     if sdg_key and sdg_key.lower() not in seen_sdg_numbers:
-                        print('oh i came after sdg key2')
                         unique_programs.append(tag) 
                         seen_sdg_numbers.add(sdg_key.lower())
 
@@ -154,7 +158,8 @@ def extract_json_from_string(response_text):
         match = re.search(r'```json\n(.*?)\n```', response_text, re.DOTALL)
         if match:
             json_text = match.group(1)
-            complete_json=make_complete_json(json.loads(json_text))
+            # complete_json=make_complete_json(json.loads(json_text))
+            complete_json=json.loads(json_text)
             return complete_json
     except json.JSONDecodeError as e:
         return {"error": "Failed to parse JSON response", "details": str(e)}
