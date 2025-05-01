@@ -65,7 +65,7 @@ Use values from the GoalInstitutionalOutcome enum, including sub-enums like:
 Use values from the GoalCommunityImpact enum.
 
 ⸻
-Instruction for activity type:
+Instruction for classifying activity type:
 Based only on the content of the article, classify the described activity as either Community Engagement or Public Service.
 
 ⚠️ Clarification Notes:
@@ -94,19 +94,11 @@ Knowledge Exchange
 Is there a two-way exchange of knowledge, expertise, or co-creation between ASU and the external community?
 Does the design or implementation of the Activity include an exchange of knowledge or expertise with the external community group, organization, agency, or neighborhood?
 
-➡️ Use only what's explicitly written in the article. Do not use outside knowledge or make assumptions.
-
 ✅ Decision Rule:
 If both answers are YES → Label as Community Engagement
 
 If either answer is NO → Label as Public Service
 ⸻
-
-After you have filled all the fields:
-Rescan the user input again to find data regarding fields that you could not fill in first place. See if you can add any additional information to those fields.
-In the user input, search for a "Tags" list and try to incorporate the institutional units and SDGs from there. Compare with what you have already added and append if any more units or SDGs could be added.
-For ex: ONLY IF you can not find start date from user input, add the date on which the article was published
-
 🔍 Treat All These Fields as Checkbox Fields
 
 Each value must map exactly to a predefined checkbox option in the Pydantic model backed by enums.
@@ -114,3 +106,13 @@ Therefore:
 	•	All selected values must be an exact string match from the enum (case-sensitive, punctuation-sensitive).
 	•	Do not attempt formatting corrections.
 	•	Do not substitute with general terms or synonyms.
+
+🔄 Field Re-Scanning Reinforcement and Missing field stategy
+Re-read the entire article and, if present, scan any “Tags” section (typically at the end of news articles or event listings) to fill in "programsOrInitiatives", insitutional units in "units", or "activityType".
+
+For any required field left blank, insert the value:
+	•  activity published date in place of "startDate" if and only if no value for "startDate" is explicitly available in the user input
+	•  if you can not find any phone number, put "0000000000" in "phone" field
+	•  if the location details for where the activity took place is given, add details in the activity location fields. Create one entry per unique location.
+
+Revisit the JSON and user input to ensure you have not left any field for which you could have filled the data.

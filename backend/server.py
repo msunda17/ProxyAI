@@ -120,27 +120,27 @@ def extract_sdg_number(text):
 def make_complete_json(json_text):
     try:
         if ".asu.edu" in actualUrl:
-            seen_sdg_numbers = set()
-            unique_programs = []
-            for item in json_text.get("programsOrInitiatives", []):
-                sdg_key = extract_sdg_number(item)
-                if sdg_key:
-                    if sdg_key.lower() not in seen_sdg_numbers:
-                        seen_sdg_numbers.add(sdg_key.lower())
-                        unique_programs.append(item)
-                    else:
-                        continue 
-                else:
-                    unique_programs.append(item)
+            # seen_sdg_numbers = set()
+            # unique_programs = []
+            # for item in json_text.get("programsOrInitiatives", []):
+            #     sdg_key = extract_sdg_number(item)
+            #     if sdg_key:
+            #         if sdg_key.lower() not in seen_sdg_numbers:
+            #             seen_sdg_numbers.add(sdg_key.lower())
+            #             unique_programs.append(item)
+            #         else:
+            #             continue 
+            #     else:
+            #         unique_programs.append(item)
 
-            for tag in all_tags:
-                if tag.lower().startswith("sdg"):
-                    sdg_key = extract_sdg_number(tag)
-                    if sdg_key and sdg_key.lower() not in seen_sdg_numbers:
-                        unique_programs.append(tag) 
-                        seen_sdg_numbers.add(sdg_key.lower())
+            # for tag in all_tags:
+            #     if tag.lower().startswith("sdg"):
+            #         sdg_key = extract_sdg_number(tag)
+            #         if sdg_key and sdg_key.lower() not in seen_sdg_numbers:
+            #             unique_programs.append(tag) 
+            #             seen_sdg_numbers.add(sdg_key.lower())
 
-            json_text["programsOrInitiatives"] = unique_programs
+            # json_text["programsOrInitiatives"] = unique_programs
 
             for tag in all_tags:
                 if tag.lower() in ["public service", "community engagement"]:
@@ -158,8 +158,7 @@ def extract_json_from_string(response_text):
         match = re.search(r'```json\n(.*?)\n```', response_text, re.DOTALL)
         if match:
             json_text = match.group(1)
-            # complete_json=make_complete_json(json.loads(json_text))
-            complete_json=json.loads(json_text)
+            complete_json=make_complete_json(json.loads(json_text))
             return complete_json
     except json.JSONDecodeError as e:
         return {"error": "Failed to parse JSON response", "details": str(e)}
