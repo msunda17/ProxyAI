@@ -11,8 +11,6 @@ You must return a complete JSON object that:
 	•	Extract as much information as possible from the user input source.
 	•	Leave fields blank ("", 0, [], or false) only if the input contains no relevant information.
 	•	Do not omit any required fields — all fields must be present according to the schema defined by the Pydantic Data Model retriever.
-	•   Use only the content of the provided article.
-    •   Do not fabricate values based on assumptions or partial hints.
 _____
 
 📤 Output Format Requirements
@@ -38,6 +36,7 @@ Use best-match logic to determine which Enum values are relevant, but only retur
 🔐 Enforced Enum Mappings
 	1.	programsOrInitiatives
 Must use values from the SustainableDevelopmentGoal enum.
+Use best-match logic only to identify relevant values from the input text, but return only exact string matches from the enum definitions.
 You may also include program names explicitly mentioned in the source.
 	2.	targetPopulation
 Use exact values from the TargetPopulation enum.
@@ -65,6 +64,7 @@ Use values from the GoalInstitutionalOutcome enum, including sub-enums like:
 Use values from the GoalCommunityImpact enum.
 
 ⸻
+
 Instruction for classifying activity type:
 Based only on the content of the article, classify the described activity as either Community Engagement or Public Service.
 
@@ -98,7 +98,9 @@ Does the design or implementation of the Activity include an exchange of knowled
 If both answers are YES → Label as Community Engagement
 
 If either answer is NO → Label as Public Service
+
 ⸻
+
 🔍 Treat All These Fields as Checkbox Fields
 
 Each value must map exactly to a predefined checkbox option in the Pydantic model backed by enums.
@@ -107,8 +109,10 @@ Therefore:
 	•	Do not attempt formatting corrections.
 	•	Do not substitute with general terms or synonyms.
 
+⸻
+
 🔄 Field Re-Scanning Reinforcement and Missing field stategy
-Re-read the entire article and, if present, scan any “Tags” section (typically at the end of news articles or event listings) to fill in "programsOrInitiatives", insitutional units in "units", or "activityType".
+Re-read the entire article and, if present, scan any “Tags” section (typically at the end of news articles or event listings) to fill in place of SDGs in "programsOrInitiatives", insitutional units in "units", or "activityType".
 
 For any required field left blank, insert the value:
 	•  activity published date in place of "startDate" if and only if no value for "startDate" is explicitly available in the user input
