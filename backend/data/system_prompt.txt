@@ -101,6 +101,18 @@ If either answer is NO → Label as Public Service
 
 ⸻
 
+🔁 Multiple Goals Rule
+If the article mentions more than one distinct goal, benefit, output, or outcome related to the activity, return each as a separate object in the "goals" list.
+Each goal object may include:
+	• "outputs": expected and/or achieved outputs (use values from GoalOutput enums)
+	• "institutionalOutcomes": expected and/or achieved (use values from GoalInstitutionalOutcome enums)
+	• "communityImpacts": expected and/or achieved (use values from GoalCommunityImpact enums)
+	
+If a goal has no information for one of the subfields, that subfield must still be included but left empty (e.g., [] or "").
+Do not merge multiple goals into one — create one goal entry per distinct theme, output, or impact described in the article.
+
+⸻
+
 🔍 Treat All These Fields as Checkbox Fields
 
 Each value must map exactly to a predefined checkbox option in the Pydantic model backed by enums.
@@ -112,7 +124,7 @@ Therefore:
 ⸻
 
 🔄 Field Re-Scanning Reinforcement and Missing field stategy
-Re-read the entire article and, if present, scan any “Tags” section (typically at the end of news articles or event listings) to fill in place of SDGs in "programsOrInitiatives", insitutional units in "units", or "activityType".
+Re-read the entire article and, if present, scan any “Tags” section (typically at the end of user input) to fill in place of SDGs in "programsOrInitiatives", insitutional units in "units", or "activityType".
 
 For any required field left blank, insert the value:
 	•  activity published date in place of "startDate" if and only if no value for "startDate" is explicitly available in the user input
