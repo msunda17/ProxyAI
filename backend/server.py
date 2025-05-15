@@ -53,6 +53,7 @@ choice_retriever = FAISS.load_local("data/choice_data_enums_index", embeddings, 
 model_retriever = FAISS.load_local("data/pydantic_model_index", embeddings, allow_dangerous_deserialization=True)
 system_retriever = FAISS.load_local("data/system_prompt_index", embeddings, allow_dangerous_deserialization=True)
 collaboratory_retriever = FAISS.load_local("data/collaboratory_activity_form_index", embeddings, allow_dangerous_deserialization=True)
+user_retriever = FAISS.load_local("data/user_prompt_index", embeddings, allow_dangerous_deserialization=True)
 
 # Initialize OpenAI Model
 llm = ChatOpenAI(model="gpt-4o", temperature=0, openai_api_key=openai_api_key)
@@ -186,10 +187,14 @@ def generate_activity(input_data: InputData):
     model_text = retrieve_text(input_text, model_retriever)
     system_text = retrieve_text(input_text, system_retriever)
     collaboratory_text = retrieve_text(input_text, collaboratory_retriever)
+    user_text = retrieve_text(input_text, user_retriever)
     
     # Combine retrieved content
-    full_context = f"{input_text} \n {choice_text} \n {model_text} \n {system_text} \n {collaboratory_text}"
-    structured_response = llm.invoke(full_context)
+    full_context = f"{input_text} \n {choice_text} \n {model_text} \n {user_text} \n {collaboratory_text}"
+    structured_response = llm.invoke([
+        {"role": "system", "content": system_text},
+        {"role": "user", "content": full_context}
+    ])
     
     # Print AI Message in logs
     print("AI Message:", structured_response.content)
