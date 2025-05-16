@@ -121,32 +121,27 @@ def extract_sdg_number(text):
 def make_complete_json(json_text):
     try:
         if ".asu.edu" in actualUrl:
-            # seen_sdg_numbers = set()
-            # unique_programs = []
-            # for item in json_text.get("programsOrInitiatives", []):
-            #     sdg_key = extract_sdg_number(item)
-            #     if sdg_key:
-            #         if sdg_key.lower() not in seen_sdg_numbers:
-            #             seen_sdg_numbers.add(sdg_key.lower())
-            #             unique_programs.append(item)
-            #         else:
-            #             continue 
-            #     else:
-            #         unique_programs.append(item)
-
-            # for tag in all_tags:
-            #     if tag.lower().startswith("sdg"):
-            #         sdg_key = extract_sdg_number(tag)
-            #         if sdg_key and sdg_key.lower() not in seen_sdg_numbers:
-            #             unique_programs.append(tag) 
-            #             seen_sdg_numbers.add(sdg_key.lower())
-
-            # json_text["programsOrInitiatives"] = unique_programs
+            seen_sdg_numbers = set()
+            unique_programs = []
+            for item in json_text.get("programsOrInitiatives", []):
+                sdg_key = extract_sdg_number(item)
+                if sdg_key:
+                    if sdg_key.lower() not in seen_sdg_numbers:
+                        seen_sdg_numbers.add(sdg_key.lower())
+                        unique_programs.append(item)
+                    else:
+                        continue 
+                else:
+                    unique_programs.append(item)
 
             for tag in all_tags:
-                if tag.lower() in ["public service", "community engagement"]:
-                    json_text["activityType"] = tag
-                    break
+                if tag.lower().startswith("sdg"):
+                    sdg_key = extract_sdg_number(tag)
+                    if sdg_key and sdg_key.lower() not in seen_sdg_numbers:
+                        unique_programs.append(tag) 
+                        seen_sdg_numbers.add(sdg_key.lower())
+
+            json_text["programsOrInitiatives"] = unique_programs
 
     except Exception as e:
         return {"error": "Failed to update JSON response", "details": str(e)}

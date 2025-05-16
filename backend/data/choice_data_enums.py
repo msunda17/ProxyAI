@@ -250,7 +250,3 @@ class FocusAreaCategorySocialIssues(Enum):
     RELIGIOUS_UNDERSTANDING = "Religious understanding"
     SENIOR_ELDER_ISSUES = "Senior/elder issues"
     VOTING_REGISTRATION = "Voting registration"
-
-class ActivityType(Enum):
-    COMMUNITY_ENGAGEMENT = "Community Engagement"
-    PUBLIC_SERVICE = "Public Service"
