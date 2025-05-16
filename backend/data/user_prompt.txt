@@ -45,8 +45,44 @@ Include multiple Enum values in each field if there is textual evidence or impli
 
 ⸻
 
+Instruction for classifying activity type:
+Based only on the content of the article, classify the described activity as either Community Engagement or Public Service.
+
+⚠️ Clarification Notes:
+Public access or external involvement does not imply mutual benefit unless both sides are explicitly shown to benefit.
+
+Knowledge exchange must go both ways: ASU giving and also learning from or building with the external community.
+
+Intended beneficiaries (like app users, concert audiences, or event attendees) do not count as collaborators.
+
+Focus groups, surveys, or public outreach do not count as knowledge exchange unless there's ongoing co-creation or shared implementation.
+
+Academic presentations, performances, or services provided to the public are Public Service unless there’s evidence of a reciprocal partnership.
+
+External collaborators must be non-academic and community-based (e.g., local nonprofits, schools, public agencies).
+
+Do not use any external information, limit yourself to the context of the given article ONLY.
+
+🧠 Decision Criteria:
+Ask:
+
+Mutual Benefit
+Is there clear evidence that both ASU and an external community-based group (e.g., nonprofit, government agency, school, local population) benefit from the activity?
+Are mutual benefits articulated by both the institution and the external community group, organization, agency, or neighborhood?
+
+Knowledge Exchange
+Is there a two-way exchange of knowledge, expertise, or co-creation between ASU and the external community?
+Does the design or implementation of the Activity include an exchange of knowledge or expertise with the external community group, organization, agency, or neighborhood?
+
+✅ Decision Rule:
+If both answers are YES → Label as Community Engagement
+
+If either answer is NO → Label as Public Service
+
+⸻
+
 🔄 Field Re-Scanning Reinforcement and Missing field stategy
-Re-read the entire article and, if present, scan any “Tags” section (typically at the end of user input) to fill in place of SDGs in "programsOrInitiatives" or insitutional units in "units".
+Re-read the entire article and, if present, scan any “Tags” section (typically at the end of user input) to fill in place of SDGs in "programsOrInitiatives", insitutional units in "units", or "activityType".
 
 For any required field left blank, insert the value:
 	•  activity published date in place of "startDate" if and only if no value for "startDate" is explicitly available in the user input
