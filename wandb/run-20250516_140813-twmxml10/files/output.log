@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\jahnv\OneDrive\Desktop\Jahnvi\ASU\SocialEmbededdness Job\ProxyAI\backend\server.py", line 52, in <module>
+    choice_retriever = FAISS.load_local("data/choice_data_enums_index", embeddings, allow_dangerous_deserialization=True)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jahnv\AppData\Local\Programs\Python\Python311\Lib\site-packages\langchain_community\vectorstores\faiss.py", line 1205, in load_local
+    index = faiss.read_index(str(path / f"{index_name}.faiss"))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jahnv\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\swigfaiss_avx2.py", line 10812, in read_index
+    return _swigfaiss_avx2.read_index(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Error in __cdecl faiss::FileIOReader::FileIOReader(const char *) at D:\a\faiss-wheels\faiss-wheels\faiss\faiss\impl\io.cpp:68: Error: 'f' failed: could not open data\choice_data_enums_index\index.faiss for reading: No such file or directory
