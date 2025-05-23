@@ -46,7 +46,7 @@ Include multiple Enum values in each field if there is textual evidence or impli
 ⸻
 
 🔄 Field Re-Scanning Reinforcement and Missing field stategy
-Re-read the entire article and, if present, scan any “Tags” section (typically at the end of user input) to fill in place of SDGs in "programsOrInitiatives", insitutional units in "units", or "activityType".
+Re-read the entire article and, if present, scan any “Tags” section (typically at the end of user input) to fill in place of SDGs in "programsOrInitiatives", or insitutional units in "units".
 
 For any required field left blank, insert the value:
 	•  activity published date in place of "startDate" if and only if no value for "startDate" is explicitly available in the user input
