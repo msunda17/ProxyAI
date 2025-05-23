@@ -126,7 +126,7 @@ def scrape_url_content(url):
         all_tags.extend(tags)  # Store all tags for later use
         article_text += "\nTags: " + ", ".join(tags)
         article_text += "\nActivity Website: " + url
-            return article_text if article_text else "No content extracted from URL."
+        return article_text if article_text else "No content extracted from URL."
 
     except Exception as e:
         return f"Error extracting content: {str(e)}"
@@ -141,52 +141,13 @@ def extract_text_from_pdf(pdf_path):
     except Exception as e:
         return f"Error extracting text from PDF: {str(e)}"
 
-def extract_sdg_number(text):
-    match = re.search(r"SDG\s*0*(\d+)", text, re.IGNORECASE)
-    return f"SDG {int(match.group(1))}" if match else None
-
-def make_complete_json(json_text):
-    try:
-        if ".asu.edu" in actualUrl:
-            # seen_sdg_numbers = set()
-            # unique_programs = []
-            # for item in json_text.get("programsOrInitiatives", []):
-            #     sdg_key = extract_sdg_number(item)
-            #     if sdg_key:
-            #         if sdg_key.lower() not in seen_sdg_numbers:
-            #             seen_sdg_numbers.add(sdg_key.lower())
-            #             unique_programs.append(item)
-            #         else:
-            #             continue 
-            #     else:
-            #         unique_programs.append(item)
-
-            # for tag in all_tags:
-            #     if tag.lower().startswith("sdg"):
-            #         sdg_key = extract_sdg_number(tag)
-            #         if sdg_key and sdg_key.lower() not in seen_sdg_numbers:
-            #             unique_programs.append(tag) 
-            #             seen_sdg_numbers.add(sdg_key.lower())
-
-            # json_text["programsOrInitiatives"] = unique_programs
-
-            for tag in all_tags:
-                if tag.lower() in ["public service", "community engagement"]:
-                    json_text["activityType"] = tag
-                    break
-
-    except Exception as e:
-        return {"error": "Failed to update JSON response", "details": str(e)}
-
-    return json_text
-
 # Function to extract JSON from AI response
 def extract_json_from_string(response_text):
     try:
         match = re.search(r'```json\n(.*?)\n```', response_text, re.DOTALL)
         if match:
             json_text = match.group(1)
-            complete_json=make_complete_json(json.loads(json_text))
+            complete_json=json.loads(json_text)
             return complete_json
     except json.JSONDecodeError as e:
         return {"error": "Failed to parse JSON response", "details": str(e)}
