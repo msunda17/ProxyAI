@@ -33,3 +33,6 @@ proxyai.pem
 proxyai.crt
 backend/proxyai.pem
 backend/proxyai.crt
+
+wandb/
+/wandb/
