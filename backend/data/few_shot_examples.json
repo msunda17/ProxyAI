@@ -1,0 +1,519 @@
+[
+  {
+"source": "Input Text: Collaborative report with the W. P. Carey School of Business highlights Latino contributions to US, Arizona economies\nFrom left: Jose A. Jurado, principal investigator and research economist, L. William Seidman Research Institute; Dennis Hoffman, director of ASU’s Office of the University Economist and the Center for Competitiveness and Prosperity; Ana Valdez, CEO and President of the LDC; Patty Juarez, executive vice president and head of Hispanic/Latino affairs, Wells Fargo & Company; and Sol Trujillo, co-founder and chairman, LDC and L’ATTITUDE. Photo courtesy of Latino Donor Collaborative\nFor the second time since the announcement of their partnership, the Latino Donor Collaborative (LDC) and Arizona State University's W. P. Carey School of Business have released a report detailing the immense contributions to the GDP made by U.S. Latinos, who represent 19.5% of the country's population.\nThe 2024 Official LDC U.S. Latino GDP Report was released at the recent L'ATTITUDE Conference. The report, titled \"Youth, Entrepreneurship, Human Capital and Education,\" is sponsored by Wells Fargo.\n“Every year, thousands of U.S. Latino business leaders come together with a mission to learn how to use this data to influence real change, create actionable plans to engage Latino audiences, and support economic policy,\" said Sol Trujillo, co-founder and chairman of LDC and L’ATTITUDE. \"The 2024 LDC U.S. Latino GDP Report continues to be invaluable for business decision-makers who are motivated by data to inform their growth strategies.”\nThe report features three additional innovations compared with last year, including forecasts of the Latino economy through 2029; a new section on U.S. Latino entrepreneurs, analyzing firm creation, employment generation, receipts, revenue and payroll by Latino origin, industry and firm size; and in-depth analysis of young Latino cohorts, who make a significant contribution to the current and future labor force.\nDennis Hoffman, director of ASU’s Office of the University Economist and the Center for Competitiveness and Prosperity, and José A. Jurado, PhD, principal investigator and research economist at W. P. Carey's L. William Seidman Research Institute, co-authored the report for the second year.\n\"This year's report outlines an important reality,\" Jurado said. \"Latinos are driving important economic growth across the country and in Arizona, and we see that trend not only continuing but expanding.\"\nSome important findings from the report include:\n\"These numbers are striking,\" Jurado said. \"As a researcher, we follow what the numbers tell us. And the numbers tell a compelling story in this case: U.S. Latinos play a vital role in our entire country's economic success.\"\nThe report additionally outlines the contributions of U.S. Latinos to the labor force, entrepreneurship and educational attainment. The national economy is increasingly reliant on Latinos to replenish the working-age (16 to 64 years) population. From 2021 to 2022, the number of non-Latinos in this population decreased by 673,000. This decline, however, was offset by an addition of 725,000 Latinos to the U.S. working-age population. Many of these new workers are starting new businesses, with Latino-owned businesses tending to be younger than comparable white-owned businesses, according to the State of Latino Entrepreneurship Report.\nThere have also been significant improvements in U.S. Latino educational attainment. Between 2010 and 2022, the percentage of U.S. Latinos holding at least a bachelor’s degree increased from 8.9% to 13.6%, while those with a graduate or professional degree rose from 4.1% to 6.8%.\n\"We are honored to partner with the Latino Donor Collaborative for the production of this important report,\" said Ohad Kadan, Charles J. Robel Dean and W. P. Carey Distinguished Chair in Business. \"As a Hispanic-Serving Institution, ASU and W. P. Carey take seriously our responsibility to engage with the Latino community in both education and knowledge creation to open doors, create opportunities and drive economic growth.\"\n",
+"structured_output": {
+    "activityType": "community engagement",
+    "activityTitle": "Latino Donor Collaborative releases 2024 US Latino GDP Report",
+    "activityDescription": "The Latino Donor Collaborative (LDC) in partnership with ASU&#39;s W. P. Carey School of Business released the 2024 U.S. Latino GDP Report. The report underscores the economic contributions of the Latino community in the United States, highlighting growth and opportunities across various sectors.</p>",
+    "activityWebsite": "https://news.asu.edu/20240913-business-and-entrepreneurship-latino-donor-collaborative-releases-2024-us-latino-gdp?utm_campaign=ASU_News_News+9-18-24_6897617&utm_medium=email&utm_source=Media%20Relations%20&%20Strategic%20Communications_SFMCE&utm_term=ASU&utm_content=latino-hed&ecd42=518002422&ecd73=54402923&ecd37=All%20ASU%20Employees&ecd43=9/18/2024",
+    "primaryContact": {
+      "firstName": "Dennis",
+      "lastName": "Hoffman",
+      "email": "dennis.hoffman@asu.edu",
+      "phone": ""
+    },
+    "activityDates": {
+      "startDate": "2024-09-02 00:00:00+00:00",
+      "endDate": "2024-09-02 00:00:00+00:00"
+    },
+    "units": [
+      "The L. William Seidman Research Institute",
+      "W.P. Carey School of Business"
+    ],
+    "programsOrInitiatives": [
+      "SDG 17: Partnership for the Goals",
+      "SDG 8: Decent Work and Economic Growth",
+      "SDG 10: Reduced Inequalities"
+    ],
+    "facultyOrStaff": [
+      "Shay Moser",
+      "Christina Ngo"
+    ],
+    "participantFacultyStaff": "5",
+    "communityOrganizations": [
+      {
+        "name": "2023 Latino Donor Collaborative (LDC)",
+        "primaryContact": {
+          "firstName": "Sol",
+          "lastName": "Trujillo",
+          "email": "info@latinocollaborative.org",
+          "phone": ""
+      }
+      },
+      {
+        "name": "Wells Fargo",
+        "primaryContact": {
+          "firstName": "Patty",
+          "lastName": "Juarez",
+          "email": "info@latinocollaborative.org",
+          "phone": ""
+        }
+      }
+    ],
+    "otherInstitutions": [
+      {
+        "name": "None",
+        "primaryContact": {
+          "firstName": "None",
+          "lastName": "",
+          "email": "None",
+          "phone": ""
+        }
+      }
+    ],
+    "fundingDetails": {
+      "isFunded": false,
+      "funders": [
+        {
+          "funderName": "",
+          "isInternalSource": false,
+          "amount": 0,
+          "startDate": "",
+          "endDate": ""
+        }
+      ]
+    },
+    "activityLocationDetails": {
+      "isPhysical": false,
+      "physicalSites": [
+        {
+          "street1": "300 E Lemon St",
+          "street2": "None",
+          "zipCode": "85287",
+          "country": "US"
+        }
+      ]
+    },
+    "targetPopulation": [
+      "General Public",
+      "Hispanic",
+      "Latino",
+      "or Spanish Origin"
+    ],
+    "focusAreaCategories": [
+      "Education",
+      "Social Issues",
+      "Community and Economic Development"
+    ],
+    "focusAreasWithinCategories": {
+      "artsAndCulture": [],
+      "communityAndEconomicDevelopment": [],
+      "education": [],
+      "environmentalSustainability": [],
+      "governmentAndPublicSafety": [],
+      "healthAndWellness": [],
+      "socialIssues": []
+    },
+    "coursesDetails": [
+      {
+        "isConnected": false,
+        "courseName": "",
+        "studentEnrollCount": 0,
+        "isEnrollCountActual": false,
+        "studentContributingHours": 0,
+        "isContributingHoursActual": false,
+        "pedagogies": [],
+        "studentLearningObjectives": []
+      }
+    ],
+    "researchDetails": [
+      {
+        "isConnected": false,
+        "researchType": "",
+        "scholarlyProducts": []
+      }
+    ],
+    "goals": {
+      "outputs": {
+        "expected": [
+          "Database(s) - Community-focused",
+          "Expert testimony(ies)",
+          "Media interview(s)",
+          "op-ed article(s)",
+          "editorial(s)",
+          "Lecture(s)",
+          "community speech(es)",
+          "Policy(ies)",
+          "Website(s) - Community"
+        ],
+        "achieved": [
+          "Media interview(s)",
+          "op-ed article(s)",
+          "editorial(s)"
+        ]
+      },
+      "institutionalOutcomes": {
+        "expected": [
+          "Funding - Activity (e.g.",
+          "gifts",
+          "grants",
+          "contracts)",
+          "Interdisciplinary opportunity(ies)",
+          "Student - Academic content",
+          "Student - Intercultural knowledge",
+          "Student - Personal growth",
+          "Student - Professional growth",
+          "Student - Retention"
+        ],
+        "achieved": [
+          "None"
+        ]
+      },
+      "communityImpacts": {
+        "expected": [
+          "Campus relationship(s) or partnerships",
+          "Connection(s) to other community group(s)/network(s)",
+          "Insight(s) into partner organization program(s)",
+          "Public Recognition",
+          "Resource use(s) (e.g.",
+          "financial",
+          "staff",
+          "volunteer)",
+          "Capacity to serve client(s)"
+        ],
+        "achieved": [
+          "Public Recognition"
+        ]
+      }
+    },
+    "communityIndividualsServed": "0",
+    "communityViewsDescription": "\"As a Hispanic-Serving Institution, ASU and W. P. Carey take seriously our responsibility to engage with the Latino community in both education and knowledge creation to open doors, create opportunities and drive economic growth.\"\u00a0said\u00a0Ohad Kadan, Charles J. Robel Dean and W. P. Carey Distinguished Chair in Business.</p>",
+    "dataCollectionDetails": {
+      "isSystematic": "False",
+      "description": ""
+    }
+  }
+  },
+  {
+"source": "Input Text: The School of Arts, Media and Engineering at ASU will host the 2025 AIA Esports State Championship in collaboration with the Arizona Interscholastic Association (AIA) and Playfly Sports. The championship event will take place on Saturday, May 3, 2025, at 10 a.m. at the San Tan Ford Club at Mountain America Stadium.\nThe competition will feature top high school teams from across Arizona, battling for the state title in three major esports titles: League of Legends, Rocket League and Super Smash Bros.TM Ultimate. The event will showcase the best student-athletes in high school esports, culminating in an exciting day of competitive gaming and school spirit. The games will include League of Legends, Rocket League and Super Smash Bros. Ultimate.  \n\"We are thrilled to bring together Arizona’s top high school esports talent for this premier event,\" said Brian Bolitho, chief business development officer at AIA. \"The collaboration with the School of Arts, Media and Engineering at ASU and Playfly Sports allows us to elevate the esports experience for student-athletes while providing valuable learning opportunities for ASU students.\"\nThe School of Arts, Media and Engineering will host and produce the championship event on behalf of the AIA and Playfly Sports. This initiative provides ASU students with an unparalleled opportunity to gain hands-on experience in event operations and production, further strengthening the bridge between academia and the rapidly growing esports industry.\n\"Esports is an exciting and rapidly evolving industry, and we’re proud to provide our students with real-world opportunities to be at the forefront of event production and management,\" said Pavan Turaga, director of the School of Arts, Media and Engineering. \"Hosting this championship is a testament to our commitment to innovation, student engagement and growth of esports across our state.\"\n\"At Playfly Sports, we are dedicated to enhancing the student-athlete experience and expanding the reach of esports at the high school level,\" said Playfly Esports Operations Manager Joe Navarro. \"We are excited to collaborate with AIA and ASU to deliver an unforgettable championship event for these talented competitors.\"     \nFans, families and gaming enthusiasts are encouraged to attend and support their favorite teams.\nFor more information, including the schedule, visit playfly.com.",
+"structured_output": {
+  "activityType": "community engagement",
+  "activityTitle": "ASU School of Arts, Media and Engineering to host AIA 2025 Esports State Championship",
+  "activityDescription": "The ASU School of Arts, Media and Engineering will host the 2025 AIA Esports State Championship on May 3, featuring top Arizona high school teams competing in League of Legends, Rocket League, and Super Smash Bros. Ultimate. This event, in collaboration with AIA and Playfly Sports, offers ASU students hands-on experience in event production, connecting academia with the growing esports industry. Fans are encouraged to attend and support their teams.</p>",
+  "activityWebsite": "https://news.asu.edu/b/20250226-asu-school-arts-media-and-engineering-host-aia-2025-esports-state-championship",
+  "primaryContact": {
+    "firstName": "Pavan",
+    "lastName": "Turaga",
+    "email": "pturaga@asu.edu",
+    "phone": ""
+  },
+  "activityDates": {
+    "startDate": "2025-05-03 10:00:00+00:00",
+    "endDate": "2025-05-03 18:00:00+00:00"
+  },
+  "units": [
+    "School of Arts, Media and Engineering",
+    "Herberger Institute for Design and the Arts"
+  ],
+  "programsOrInitiatives": [
+    "Esports",
+    "AIA State Championship"
+  ],
+  "facultyOrStaff": [
+    "Pavan Turaga"
+  ],
+  "participantFacultyStaff": "0",
+  "communityOrganizations": [
+    {
+      "name": "Arizona Interscholastic Association",
+      "primaryContact": {
+        "firstName": "Brian",
+        "lastName": "Bolitho",
+        "email": "bbolitho@aiaonline.org",
+        "phone": ""
+      }
+    },
+    {
+      "name": "Playfly Sports",
+      "primaryContact": {
+        "firstName": "Michael",
+        "lastName": "Schreiber",
+        "email": "privacypolicy@playfly.com",
+        "phone": ""
+      }
+    }
+  ],
+  "otherInstitutions": [
+    {
+      "name": "None",
+      "primaryContact": {
+        "firstName": "None",
+        "lastName": "",
+        "email": "None",
+        "phone": ""
+      }
+    }
+  ],
+  "fundingDetails": {
+    "isFunded": false,
+    "funders": [
+      {
+        "funderName": "",
+        "isInternalSource": false,
+        "amount": 0,
+        "startDate": "",
+        "endDate": ""
+      }
+    ]
+  },
+  "activityLocationDetails": {
+    "isPhysical": true,
+    "physicalSites": [
+      {
+        "street1": "500 E Veterans Way",
+        "street2": "",
+        "zipCode": "85287",
+        "country": "US"
+      }
+    ]
+  },
+  "targetPopulation": [
+    "Youth (12-17)",
+    "Young Adults (18-24)",
+    "College Students",
+    "Families",
+    "General Public",
+    "Urban Communities"
+  ],
+  "focusAreaCategories": [
+    "Education",
+    "Health and Wellness",
+    "Community and Economic Development"
+  ],
+  "focusAreasWithinCategories": {
+    "artsAndCulture": [],
+    "communityAndEconomicDevelopment": [],
+    "education": [],
+    "environmentalSustainability": [],
+    "governmentAndPublicSafety": [],
+    "healthAndWellness": [],
+    "socialIssues": []
+  },
+  "coursesDetails": [
+    {
+      "isConnected": false,
+      "courseName": "",
+      "studentEnrollCount": 0,
+      "isEnrollCountActual": false,
+      "studentContributingHours": 0,
+      "isContributingHoursActual": false,
+      "pedagogies": [],
+      "studentLearningObjectives": []
+    }
+  ],
+  "researchDetails": [
+    {
+      "isConnected": false,
+      "researchType": "",
+      "scholarlyProducts": []
+    }
+  ],
+  "goals": {
+    "outputs": {
+      "expected": [
+        "Education - Adult (e.g.",
+        "non-credit",
+        "non-degree",
+        "personal improvement)",
+        "Event(s) - Athletic or recreational (e.g.",
+        "spectator or voluntary participant)",
+        "Media interview(s)",
+        "op-ed article(s)",
+        "editorial(s)",
+        "Volunteer support(s) - community event(s) or program(s)",
+        "Website(s) - Community"
+      ],
+      "achieved": [
+        "None"
+      ]
+    },
+    "institutionalOutcomes": {
+      "expected": [
+        "Funding - Activity (e.g.",
+        "gifts",
+        "grants",
+        "contracts)",
+        "Community participation in campus event(s)",
+        "Student - Lifelong learning foundations and skills",
+        "Student - Personal growth"
+      ],
+      "achieved": [
+        "None"
+      ]
+    },
+    "communityImpacts": {
+      "expected": [
+        "Campus relationship(s) or partnerships",
+        "Connection(s) to other community group(s)/network(s)",
+        "Insight(s) into partner organization program(s)",
+        "Resource use(s) (e.g.",
+        "financial",
+        "staff",
+        "volunteer)",
+        "Service(s) to client(s)"
+      ],
+      "achieved": [
+        "None"
+      ]
+    }
+  },
+  "communityIndividualsServed": "0",
+  "communityViewsDescription": "",
+  "dataCollectionDetails": {
+    "isSystematic": "False",
+    "description": ""
+  }
+},
+    "participantFacultyStaff": "0",
+    "communityOrganizations": [
+      {
+        "name": "Arizona Interscholastic Association ",
+        "primaryContact": {
+          "firstName": "Brian",
+          "lastName": "Bolitho",
+          "email": "bbolitho@aiaonline.org",
+          "phone": ""
+        }
+      },
+      {
+        "name": "Playfly Sports",
+        "primaryContact": {
+          "firstName": "Michael",
+          "lastName": "Schreiber",
+          "email": "privacypolicy@playfly.com",
+          "phone": ""
+        }
+      }
+    ],
+    "otherInstitutions": [
+      {
+        "name": "None",
+        "primaryContact": {
+          "firstName": "None",
+          "lastName": "",
+          "email": "None",
+          "phone": ""
+        }
+      }
+    ],
+    "fundingDetails": {
+      "isFunded": false,
+      "funders": [
+        {
+          "funderName": "",
+          "isInternalSource": false,
+          "amount": 0,
+          "startDate": "",
+          "endDate": ""
+        }
+      ]
+    },
+    "activityLocationDetails": {
+      "isPhysical": false,
+      "physicalSites": [
+        {
+          "street1": "500 E Veterans Way",
+          "street2": "None",
+          "zipCode": "85287",
+          "country": "US"
+        }
+      ]
+    },
+    "targetPopulation": [
+      "Youth (12-17)",
+      "Young Adults (18-24)",
+      "College Students",
+      "Families",
+      "General Public",
+      "Urban Communities"
+    ],
+    "focusAreaCategories": [
+      "Education",
+      "Health and Wellness",
+      "Community and Economic Development"
+    ],
+    "focusAreasWithinCategories": {
+      "artsAndCulture": [],
+      "communityAndEconomicDevelopment": [],
+      "education": [],
+      "environmentalSustainability": [],
+      "governmentAndPublicSafety": [],
+      "healthAndWellness": [],
+      "socialIssues": []
+    },
+    "coursesDetails": [
+      {
+        "isConnected": false,
+        "courseName": "",
+        "studentEnrollCount": 0,
+        "isEnrollCountActual": false,
+        "studentContributingHours": 0,
+        "isContributingHoursActual": false,
+        "pedagogies": [],
+        "studentLearningObjectives": []
+      }
+    ],
+    "researchDetails": [
+      {
+        "isConnected": false,
+        "researchType": "",
+        "scholarlyProducts": []
+      }
+    ],
+    "goals": {
+      "outputs": {
+        "expected": [
+          "Education - Adult (e.g.",
+          "non-credit",
+          "non-degree",
+          "personal improvement)",
+          "Event(s) - Athletic or recreational (e.g.",
+          "spectator or voluntary participant)",
+          "Media interview(s)",
+          "op-ed article(s)",
+          "editorial(s)",
+          "Volunteer support(s) - community event(s) or program(s)",
+          "Website(s) - Community"
+        ],
+        "achieved": [
+          "None"
+        ]
+      },
+      "institutionalOutcomes": {
+        "expected": [
+          "Funding - Activity (e.g.",
+          "gifts",
+          "grants",
+          "contracts)",
+          "Community participation in campus event(s)",
+          "Student - Lifelong learning foundations and skills",
+          "Student - Personal growth"
+        ],
+        "achieved": [
+          "None"
+        ]
+      },
+      "communityImpacts": {
+        "expected": [
+          "Campus relationship(s) or partnerships",
+          "Connection(s) to other community group(s)/network(s)",
+          "Insight(s) into partner organization program(s)",
+          "Resource use(s) (e.g.",
+          "financial",
+          "staff",
+          "volunteer)",
+          "Service(s) to client(s)"
+        ],
+        "achieved": [
+          "None"
+        ]
+      }
+    },
+    "communityIndividualsServed": "0",
+    "communityViewsDescription": "",
+    "dataCollectionDetails": {
+      "isSystematic": "False",
+      "description": ""
+    }
+  }
+]

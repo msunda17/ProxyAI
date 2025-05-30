@@ -20,8 +20,9 @@ _____
 
 📤 Output Format Requirements
 	•	Return a single valid JSON object.
-	•   Always wrap your output in triple backticks with the `json` tag:  ```json { ... } 
+	• Always wrap your output in triple backticks with the `json` tag:  ```json { ... } 
 	•	Do not include markdown formatting, narrative descriptions, or explanations.
+  • Refer to the example output given in ``` before giving your response, to know how to fill the json
 ⸻
 
 🧩 Field Rules Based on Python Enums
@@ -30,3 +31,9 @@ _____
 • Inference is allowed during extraction only — you may interpret or infer meaning from the input source to identify which Enum values are relevant
 • But in the final JSON output, use the exact string value from the Enum — no synonyms, no rewordings, no edits.
 • If multiple Enum values could plausibly match a description, include all matching values as long as there’s textual or contextual support
+
+⸻
+Before generating the structured response, carefully observe how the source content maps to the structured output in each example.
+Pay close attention to what information is extracted, how it's interpreted, and where it's placed in the JSON fields.
+Mimic this pattern for the new input.
+Only use information that can be reasonably inferred from the source text..
