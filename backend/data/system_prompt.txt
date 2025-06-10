@@ -34,6 +34,6 @@ _____
 
 ⸻
 Before generating the structured response, carefully observe how the source content maps to the structured output in each example.
-Pay close attention to what information is extracted, how it's interpreted, and where it's placed in the JSON fields.
+Pay close attention to what information is extracted, how it's interpreted, and where it's placed in the JSON fields. USE THE EXAMPLES ONLY FOR REFERENCE, DO NOT INCLUDE THE EXAMPLES TEXT IN YOUR RESPONSES.
 Mimic this pattern for the new input.
-Only use information that can be reasonably inferred from the source text..
+Only use information that can be reasonably inferred from the source text.

@@ -55,7 +55,7 @@ model_retriever = FAISS.load_local("data/pydantic_model_index", embeddings, allo
 system_retriever = FAISS.load_local("data/system_prompt_index", embeddings, allow_dangerous_deserialization=True)
 collaboratory_retriever = FAISS.load_local("data/collaboratory_activity_form_index", embeddings, allow_dangerous_deserialization=True)
 user_retriever = FAISS.load_local("data/user_prompt_index", embeddings, allow_dangerous_deserialization=True)
-few_shot_retriever = FAISS.load_local("data/few_shot_examples_index", embeddings, allow_dangerous_deserialization=True)
+# few_shot_retriever = FAISS.load_local("data/few_shot_examples_index", embeddings, allow_dangerous_deserialization=True)
 # Initialize OpenAI Model
 llm = ChatOpenAI(model="gpt-4o", temperature=0, openai_api_key=openai_api_key)
 
@@ -221,20 +221,20 @@ def generate_activity(input_data: InputData):
     # Combine retrieved content
     full_context = f"{input_text} \n {choice_text} \n {model_text} \n {user_text} \n {collaboratory_text}"
 
-    with open("data/few_shot_examples.json", "r", encoding="utf-8") as f:
-        examples = json.load(f)
+    # with open("data/few_shot_examples.json", "r", encoding="utf-8") as f:
+    #     examples = json.load(f)
     
-    few_shot_messages = []
-    for ex in examples:
-        few_shot_messages.append({"role": "user", "content": ex["source"]})
-        few_shot_messages.append({"role": "assistant", "content": json.dumps(ex["structured_output"], indent=2)})
+    # few_shot_messages = []
+    # for ex in examples:
+    #     few_shot_messages.append({"role": "user", "content": ex["source"]})
+    #     few_shot_messages.append({"role": "assistant", "content": json.dumps(ex["structured_output"], indent=2)})
 
     # structured_response = llm.invoke([
     #     {"role": "system", "content": system_text},
     #     {"role": "user", "content": full_context}
     # ])
 
-    messages = [{"role": "system", "content": system_text}] + few_shot_messages + [{"role": "user", "content": full_context}]
+    messages = [{"role": "system", "content": system_text}]  + [{"role": "user", "content": full_context}]
     structured_response = llm.invoke(messages)
     
     # Print AI Message in logs
