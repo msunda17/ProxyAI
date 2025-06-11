@@ -38,6 +38,7 @@ SYSTEM_PROMPT_PATH = "data/system_prompt.txt"
 USER_PROMPT_PATH = "data/user_prompt.txt"
 COLLABORATORY_FORM_PATH = "data/collaboratory_activity_form.json"
 FEW_SHOT_EXAMPLES_PATH = "data/few_shot_examples.json"
+
 # Initialize OpenAI Embeddings
 embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
@@ -97,6 +98,7 @@ def update_embeddings():
     user_prompt_text = [load_text_file(USER_PROMPT_PATH)]
     collaboratory_form_text = [load_text_file(COLLABORATORY_FORM_PATH)]
     few_shot_examples_text = [load_text_file(FEW_SHOT_EXAMPLES_PATH)]
+
     # Generate embeddings
     generate_and_save_faiss_index(choice_texts, CHOICE_INDEX_PATH)
     generate_and_save_faiss_index(pydantic_model_schema, PYDANTIC_MODEL_INDEX_PATH)

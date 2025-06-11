@@ -17,6 +17,7 @@ import uvicorn
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from urllib.parse import urljoin
+import tiktoken
 
 app = FastAPI()
 load_dotenv()
@@ -25,6 +26,10 @@ load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 wandb_key = os.getenv("WANDB_KEY")
 env = os.getenv("ENV", "prod")
+
+def count_tokens(text, model="gpt-4o"):
+    encoding = tiktoken.encoding_for_model(model)
+    return len(encoding.encode(text))
 
 # Ensure API keys are provided
 if not openai_api_key:
@@ -55,7 +60,8 @@ model_retriever = FAISS.load_local("data/pydantic_model_index", embeddings, allo
 system_retriever = FAISS.load_local("data/system_prompt_index", embeddings, allow_dangerous_deserialization=True)
 collaboratory_retriever = FAISS.load_local("data/collaboratory_activity_form_index", embeddings, allow_dangerous_deserialization=True)
 user_retriever = FAISS.load_local("data/user_prompt_index", embeddings, allow_dangerous_deserialization=True)
-# few_shot_retriever = FAISS.load_local("data/few_shot_examples_index", embeddings, allow_dangerous_deserialization=True)
+few_shot_retriever = FAISS.load_local("data/few_shot_examples_index", embeddings, allow_dangerous_deserialization=True)
+
 # Initialize OpenAI Model
 llm = ChatOpenAI(model="gpt-4o", temperature=0, openai_api_key=openai_api_key)
 
@@ -213,7 +219,7 @@ def generate_activity(input_data: InputData):
     # Retrieve relevant texts
     choice_text = retrieve_text(input_text, choice_retriever)
     model_text = retrieve_text(input_text, model_retriever)
-    # few_shot_text= retrieve_text(input_text, few_shot_retriever)
+    few_shot_text= retrieve_text(input_text, few_shot_retriever)
     system_text = retrieve_text(input_text, system_retriever)
     collaboratory_text = retrieve_text(input_text, collaboratory_retriever)
     user_text = retrieve_text(input_text, user_retriever)
@@ -221,25 +227,54 @@ def generate_activity(input_data: InputData):
     # Combine retrieved content
     full_context = f"{input_text} \n {choice_text} \n {model_text} \n {user_text} \n {collaboratory_text}"
 
-    # with open("data/few_shot_examples.json", "r", encoding="utf-8") as f:
-    #     examples = json.load(f)
+    with open("data/few_shot_examples.json", "r", encoding="utf-8") as f:
+        examples = json.load(f)
     
-    # few_shot_messages = []
-    # for ex in examples:
-    #     few_shot_messages.append({"role": "user", "content": ex["source"]})
-    #     few_shot_messages.append({"role": "assistant", "content": json.dumps(ex["structured_output"], indent=2)})
+    few_shot_messages = []
+    for ex in examples:
+        few_shot_messages.append({"role": "user", "content": ex["source"]})
+        few_shot_messages.append({"role": "assistant", "content": json.dumps(ex["structured_output"], indent=2)})
 
-    # structured_response = llm.invoke([
-    #     {"role": "system", "content": system_text},
-    #     {"role": "user", "content": full_context}
-    # ])
+    structured_response = llm.invoke([
+        {"role": "system", "content": system_text},
+        {"role": "user", "content": full_context}
+    ])
 
-    messages = [{"role": "system", "content": system_text}]  + [{"role": "user", "content": full_context}]
+    messages = [{"role": "system", "content": system_text}]  + few_shot_messages + [{"role": "user", "content": full_context}]
+
+    input_tokens = count_tokens(input_text)
+    choice_tokens = count_tokens(choice_text)
+    model_tokens = count_tokens(model_text)
+    user_tokens = count_tokens(user_text)
+    collab_tokens = count_tokens(collaboratory_text)
+    system_tokens = count_tokens(system_text)
+    few_shot_tokens = sum(count_tokens(m["content"]) for m in few_shot_messages)
+    prompt_tokens = system_tokens + few_shot_tokens + count_tokens(full_context)
+    
+    print(f"Input Tokens: {input_tokens}")
+    print(f"Choice Tokens: {choice_tokens}")
+    print(f"Model Tokens: {model_tokens}")
+    print(f"User Tokens: {user_tokens}")
+    print(f"Collaboratory Tokens: {collab_tokens}")
+    print(f"System Prompt Tokens: {system_tokens}")
+    print(f"Few Shot Tokens: {few_shot_tokens}")
+    print(f"Prompt Tokens (system + few shot): {prompt_tokens}")
+
     structured_response = llm.invoke(messages)
     
     # Print AI Message in logs
     print("AI Message:", structured_response.content)
+
+    response_tokens = count_tokens(structured_response.content)
+    print(f"Response Token Count: {response_tokens}")
     
+    total_llm_tokens = prompt_tokens + response_tokens + few_shot_tokens
+    rag_tokens = input_tokens + choice_tokens + model_tokens + user_tokens + collab_tokens
+    total_pipeline_tokens = total_llm_tokens + rag_tokens
+
+    print(f"Total LLM Tokens (Prompt + Response): {total_llm_tokens}")
+    print(f"Total Pipeline Tokens (Input + Retrieval + LLM): {total_pipeline_tokens}")
+
     # Extract JSON from response
     extracted_json = extract_json_from_string(structured_response.content)
 
