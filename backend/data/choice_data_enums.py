@@ -1,9 +1,5 @@
 from enum import Enum
 
-class ActivityType(Enum):
-    COMMUNITY_ENGAGEMENT = "Community Engagement"
-    PUBLIC_SERVICE = "Public Service"
-
 class SustainableDevelopmentGoal(Enum):
     SDG_1_NO_POVERTY = "SDG 1: No Poverty"
     SDG_2_ZERO_HUNGER = "SDG 2: Zero Hunger"

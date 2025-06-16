@@ -31,13 +31,11 @@ PYDANTIC_MODEL_INDEX_PATH = "data/pydantic_model_index"
 SYSTEM_INDEX_PATH = "data/system_prompt_index"
 USER_PROMPT_INDEX_PATH = "data/user_prompt_index"
 COLLABORATORY_INDEX_PATH = "data/collaboratory_activity_form_index"
-# FEW_SHOT_EXAMPLES_INDEX_PATH = "data/few_shot_examples_index"
 
 # Define source files
 SYSTEM_PROMPT_PATH = "data/system_prompt.txt"
 USER_PROMPT_PATH = "data/user_prompt.txt"
 COLLABORATORY_FORM_PATH = "data/collaboratory_activity_form.json"
-# FEW_SHOT_EXAMPLES_PATH = "data/few_shot_examples.json"
 
 # Initialize OpenAI Embeddings
 embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
@@ -71,7 +69,6 @@ def update_embeddings():
     delete_index_if_exists(SYSTEM_INDEX_PATH)
     delete_index_if_exists(USER_PROMPT_INDEX_PATH)
     delete_index_if_exists(COLLABORATORY_INDEX_PATH)
-    # delete_index_if_exists(FEW_SHOT_EXAMPLES_INDEX_PATH)
 
     # Extract enum strings
     choice_texts = extract_enum_strings(
@@ -97,7 +94,6 @@ def update_embeddings():
     system_prompt_text = [load_text_file(SYSTEM_PROMPT_PATH)]
     user_prompt_text = [load_text_file(USER_PROMPT_PATH)]
     collaboratory_form_text = [load_text_file(COLLABORATORY_FORM_PATH)]
-    # few_shot_examples_text = [load_text_file(FEW_SHOT_EXAMPLES_PATH)]
 
     # Generate embeddings
     generate_and_save_faiss_index(choice_texts, CHOICE_INDEX_PATH)
@@ -105,7 +101,6 @@ def update_embeddings():
     generate_and_save_faiss_index(system_prompt_text, SYSTEM_INDEX_PATH)
     generate_and_save_faiss_index(collaboratory_form_text, COLLABORATORY_INDEX_PATH)
     generate_and_save_faiss_index(user_prompt_text, USER_PROMPT_INDEX_PATH)
-    # generate_and_save_faiss_index(few_shot_examples_text, FEW_SHOT_EXAMPLES_INDEX_PATH)
     
     print("✅ All embeddings updated successfully!")
 

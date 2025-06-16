@@ -60,7 +60,6 @@ model_retriever = FAISS.load_local("data/pydantic_model_index", embeddings, allo
 system_retriever = FAISS.load_local("data/system_prompt_index", embeddings, allow_dangerous_deserialization=True)
 collaboratory_retriever = FAISS.load_local("data/collaboratory_activity_form_index", embeddings, allow_dangerous_deserialization=True)
 user_retriever = FAISS.load_local("data/user_prompt_index", embeddings, allow_dangerous_deserialization=True)
-# few_shot_retriever = FAISS.load_local("data/few_shot_examples_index", embeddings, allow_dangerous_deserialization=True)
 
 # Initialize OpenAI Model
 llm = ChatOpenAI(model="gpt-4.1", temperature=0, openai_api_key=openai_api_key)
@@ -165,11 +164,8 @@ def make_complete_json(json_text):
                         seen_sdg_numbers.add(sdg_key.lower())
 
             json_text["programsOrInitiatives"] = unique_programs
-
-            for tag in all_tags:
-                if tag.lower() in ["public service", "community engagement"]:
-                    json_text["activityType"] = tag
-                    break
+        else:
+            pass  # No specific processing for non-ASU URLs
 
     except Exception as e:
         return {"error": "Failed to update JSON response", "details": str(e)}
@@ -192,8 +188,9 @@ def extract_json_from_string(response_text):
         match = re.search(r'```json\n(.*?)\n```', response_text, re.DOTALL)
         if match:
             json_text = match.group(1)
-            complete_json=json.loads(json_text)
+            complete_json=make_complete_json(json_text)
             return complete_json
+        
     except json.JSONDecodeError as e:
         return {"error": "Failed to parse JSON response", "details": str(e)}
     return {"error": "No valid JSON found in response"}
@@ -219,21 +216,12 @@ def generate_activity(input_data: InputData):
     # Retrieve relevant texts
     choice_text = retrieve_text(input_text, choice_retriever)
     model_text = retrieve_text(input_text, model_retriever)
-    # few_shot_text= retrieve_text(input_text, few_shot_retriever)
     system_text = retrieve_text(input_text, system_retriever)
     collaboratory_text = retrieve_text(input_text, collaboratory_retriever)
     user_text = retrieve_text(input_text, user_retriever)
 
     # Combine retrieved content
     full_context = f"{input_text} \n {choice_text} \n {model_text} \n {user_text} \n {collaboratory_text}"
-
-    # with open("data/few_shot_examples.json", "r", encoding="utf-8") as f:
-    #     examples = json.load(f)
-    
-    # few_shot_messages = []
-    # for ex in examples:
-    #     few_shot_messages.append({"role": "user", "content": ex["source"]})
-    #     few_shot_messages.append({"role": "assistant", "content": json.dumps(ex["structured_output"], indent=2)})
 
     structured_response = llm.invoke([
         {"role": "system", "content": system_text},
@@ -249,7 +237,17 @@ def generate_activity(input_data: InputData):
     collab_tokens = count_tokens(collaboratory_text)
     system_tokens = count_tokens(system_text)
     prompt_tokens = system_tokens + count_tokens(full_context)
+
+    structured_response = llm.invoke(messages)
     
+    # Print AI Message in logs
+    print("AI Message:", structured_response.content)
+
+    response_tokens = count_tokens(structured_response.content)  
+    total_llm_tokens = prompt_tokens + response_tokens
+    rag_tokens = input_tokens + choice_tokens + model_tokens + user_tokens + collab_tokens
+    total_pipeline_tokens = total_llm_tokens + rag_tokens
+
     print(f"Input Tokens: {input_tokens}")
     print(f"Choice Tokens: {choice_tokens}")
     print(f"Model Tokens: {model_tokens}")
@@ -257,19 +255,7 @@ def generate_activity(input_data: InputData):
     print(f"Collaboratory Tokens: {collab_tokens}")
     print(f"System Prompt Tokens: {system_tokens}")
     print(f"Prompt Tokens (system + few shot): {prompt_tokens}")
-
-    structured_response = llm.invoke(messages)
-    
-    # Print AI Message in logs
-    print("AI Message:", structured_response.content)
-
-    response_tokens = count_tokens(structured_response.content)
     print(f"Response Token Count: {response_tokens}")
-    
-    total_llm_tokens = prompt_tokens + response_tokens
-    rag_tokens = input_tokens + choice_tokens + model_tokens + user_tokens + collab_tokens
-    total_pipeline_tokens = total_llm_tokens + rag_tokens
-
     print(f"Total LLM Tokens (Prompt + Response): {total_llm_tokens}")
     print(f"Total Pipeline Tokens (Input + Retrieval + LLM): {total_pipeline_tokens}")
 
