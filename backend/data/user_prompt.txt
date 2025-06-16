@@ -45,5 +45,60 @@ Include multiple Enum values in each field if there is textual evidence or impli
 
 ⸻
 
+📝 Task:
+Based only on the content of the provided article, classify the described activity as either "Community Engagement" or "Public Service".
+
+🎯 Decision Criteria:
+Ask These Two Questions:
+Mutual Benefit
+→ Does the activity clearly benefit both the higher education institution and a non-academic, community-based partner (e.g., nonprofit, school, government agency, or community group)?
+
+Transformational Collaboration
+→ Is there clear evidence of:
+
+Co-creation of programs or knowledge?
+
+Shared planning or governance?
+
+Ongoing, reciprocal partnership beyond one-time support?
+
+✅ Decision Rule:
+IF Both answers are YES	THEN "Community Engagement"
+IF Either answer is NO THEN "Public Service"
+
+🔎 Clarification Rules (Based on Literature):
+Do NOT infer or assume anything not explicitly stated in the article.
+
+The external partner must be actively involved — not just a recipient or audience.
+
+Public-facing access, impact, or outreach ≠ community engagement.
+
+Surveys, feedback forms, or focus groups are not co-creation unless followed by shared action.
+
+Performances, public lectures, exhibitions, student service = Public Service unless there’s collaborative design or governance.
+
+📌 Key Definitions (For Reference Only – Do Not Output)
+Community Engagement:
+
+Long-term, trust-based partnerships
+
+Shared power, co-designed outcomes
+
+Mutual learning between university and community
+
+Often linked to institutional transformation or systemic change
+
+Public Service:
+
+Time-bound, one-way outreach or service
+
+Volunteerism, presentations, or technical assistance
+
+Maintains existing systems and hierarchies
+
+No evidence of shared decision-making or co-production
+
+⸻
+
 🔄 Field Re-Scanning Reinforcement and Missing field stategy
 Re-read the entire article and, if present, scan any “Tags” section (typically at the end of user input) to fill in place of SDGs in "programsOrInitiatives" or insitutional units in "units"
