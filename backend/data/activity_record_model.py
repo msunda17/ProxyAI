@@ -14,7 +14,7 @@ from data.choice_data_enums import (
     FocusAreaCategoryEnvironmentalSustainability,
     FocusAreaCategoryGovernmentAndPublicSafety,
     FocusAreaCategoryHealthandWellness,
-    FocusAreaCategorySocialIssues,
+    FocusAreaCategorySocialIssues
 )
 
 class Contact(BaseModel):

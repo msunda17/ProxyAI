@@ -1,0 +1,49 @@
+🔍 Treat All These Fields as Checkbox Fields
+
+Each value must map exactly to a predefined checkbox option in the Pydantic model backed by enums.
+Therefore:
+	•	All selected values must be an exact string match from the enum (case-sensitive, punctuation-sensitive).
+	•	Do not attempt formatting corrections.
+	•	Do not substitute with general terms or synonyms.
+⸻
+
+🔐 Enforced Enum Mappings : Include all applicable Enum values when multiple are implied.
+
+	1.	programsOrInitiatives
+Must use values from the SustainableDevelopmentGoal enum.
+Use best-match logic only to identify relevant values from the input text, but return only exact string matches from the enum definitions.
+You may also include program names explicitly mentioned in the source.
+	2.	targetPopulation
+Use exact values from the TargetPopulation enum.
+	3.	focusAreaCategories
+Use values from the FocusAreaCategory enum.
+	4.	focusAreasWithinCategories
+Each key (category) must use subcategory values from the appropriate enum:
+Example: For "education", use values from FocusAreaCategoryEducation.
+	5.	coursesDetails[].pedagogies
+Use only values from the Pedagogy enum.
+	6.	coursesDetails[].studentLearningObjectives
+Use values from the LearningObjective enum.
+	7.	goals.outputs.expected / achieved
+Use values from the GoalOutput enum. If nested enums are used, refer to:
+
+	•	GoalOutputSTUDENT
+	•	GoalOutputCOMMUNITY
+
+Include multiple Enum values in each field if there is textual evidence or implication of multiple goals being pursued or achieved
+
+    8.	goals.institutionalOutcomes.expected / achieved
+Use values from the GoalInstitutionalOutcome enum, including sub-enums like:
+
+	•	GoalInstitutionalOutcomeSTUDENT
+Include multiple Enum values in each field if there is textual evidence or implication of multiple goals being pursued or achieved
+
+	9.	goals.communityImpacts.expected / achieved
+Use values from the GoalCommunityImpact enum.
+
+Include multiple Enum values in each field if there is textual evidence or implication of multiple goals being pursued or achieved
+
+⸻
+
+🔄 Field Re-Scanning Reinforcement and Missing field stategy
+Re-read the entire article and, if present, scan any “Tags” section (typically at the end of user input) to fill in place of SDGs in "programsOrInitiatives" or insitutional units in "units"
