@@ -102,7 +102,7 @@ class FocusAreasWithinCategories(BaseModel):
     socialIssues: List[FocusAreaCategorySocialIssues]
 
 class ActivityRecord(BaseModel):
-    activityType: ActivityType
+    activityType: str
     activityTitle: str
     activityDescription: str
     activityWebsite: str
