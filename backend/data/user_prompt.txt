@@ -44,7 +44,7 @@ Use values from the GoalCommunityImpact enum.
 Include multiple Enum values in each field if there is textual evidence or implication of multiple goals being pursued or achieved
 
 ⸻
-⚠ Clarification Notes
+🎯 Clarification Notes
 Community Engagement
 Higher ed works with external, community-based partners (e.g., nonprofits, schools, agencies, neighborhoods) in a sustained, cooperative, or transformational partnership to co-create, co-plan, co-implement, or co-deliver shared goals.
 
@@ -102,6 +102,7 @@ If either criterion = NO, classify as Public Service
 
 📝 Task
 Based only on the content of the provided article, classify the described activity as either "Community Engagement" or "Public Service".
+⸻
 ⸻
 
 🔄 Field Re-Scanning Reinforcement and Missing field stategy
