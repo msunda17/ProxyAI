@@ -14,7 +14,7 @@ export default function ChatInterface() {
   const [aiMessage, setAiMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const url = process.env.ENV === "local" ? "http://localhost:8001/" : "/api/"
+  const url = "http://localhost:8001/"
   const handleSubmit = async () => {
     setLoading(true);
     const formData = new FormData();

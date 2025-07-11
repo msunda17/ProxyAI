@@ -44,8 +44,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
-  "homepage": "https://proxyai.onrender.com",
+  "proxy": "http://localhost:8001",
+  "homepage": "https://proxyai.treetopcommons.com",
   "devDependencies": {
     "gh-pages": "^6.3.0"
   }
