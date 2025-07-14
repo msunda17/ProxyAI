@@ -142,10 +142,6 @@ def extract_sdg_number(text):
 
 def make_complete_json(json_text):
     try:
-        json_text = json.loads(json_text)
-    except json.JSONDecodeError as e:
-        return {"error": "Invalid JSON format", "details": str(e)}
-    try:
         if ".asu.edu" in actualUrl:
             seen_sdg_numbers = set()
             unique_programs = []
