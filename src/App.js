@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Card, CardContent, CardActions, Typography, Box, Paper } from "@mui/material";
+import { Card, CardContent, CardActions, Typography, Box, Paper, IconButton } from "@mui/material";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
-import { CloudUpload } from "@mui/icons-material";
+import { CloudUpload, Add, Delete } from "@mui/icons-material";
 import JSONPretty from 'react-json-pretty';
 import 'react-json-pretty/themes/monikai.css';
 import { alignProperty } from "@mui/material/styles/cssUtils";
 
 export default function ChatInterface() {
-  const [input, setInput] = useState("");
+  const [urls, setUrls] = useState([""]); // Array to hold multiple URLs
   const [file, setFile] = useState(null);
   const [response, setResponse] = useState(null);
   const [aiMessage, setAiMessage] = useState("");
@@ -16,16 +16,44 @@ export default function ChatInterface() {
 
   const url = "http://localhost:8001/"
 
+  // Add new URL field
+  const addUrlField = () => {
+    setUrls([...urls, ""]);
+  };
+
+  // Remove URL field at specific index
+  const removeUrlField = (index) => {
+    if (urls.length > 1) {
+      const newUrls = urls.filter((_, i) => i !== index);
+      setUrls(newUrls);
+    }
+  };
+
+  // Update URL at specific index
+  const updateUrl = (index, value) => {
+    const newUrls = [...urls];
+    newUrls[index] = value;
+    setUrls(newUrls);
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
     const formData = new FormData();
     if (file) formData.append("file", file);
-    if (input) formData.append("url", input);
+    
+    // Filter out empty URLs
+    const validUrls = urls.filter(url => url.trim() !== "");
+    
+    if (validUrls.length === 0) {
+      alert("Please enter at least one URL");
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await fetch(url + "generate_activity", {
         method: "POST",
-        body: JSON.stringify({ url: input }),
+        body: JSON.stringify({ urls: validUrls }), // Send array of URLs
         headers: {
           "Content-Type": "application/json"
         }
@@ -51,17 +79,45 @@ export default function ChatInterface() {
             Proxy AI
           </Typography>
           <Typography variant="body2" color="textSecondary" gutterBottom>
-            Provide a URL or upload a file to generate structured activity data.
+            Provide URLs or upload a file to generate structured activity data.
           </Typography>
+          
+          {/* URL Input Fields */}
           <Box mt={2}>
-            <TextField
-              label="Enter a URL"
-              variant="outlined"
-              fullWidth
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
+            {urls.map((urlValue, index) => (
+              <Box key={index} display="flex" alignItems="center" mb={2}>
+                <TextField
+                  label={`Enter URL ${index + 1}`}
+                  variant="outlined"
+                  fullWidth
+                  value={urlValue}
+                  onChange={(e) => updateUrl(index, e.target.value)}
+                  sx={{ mr: 1 }}
+                />
+                <IconButton
+                  onClick={() => removeUrlField(index)}
+                  disabled={urls.length === 1}
+                  color="error"
+                  sx={{ ml: 1 }}
+                >
+                  <Delete />
+                </IconButton>
+              </Box>
+            ))}
+            
+            {/* Add URL Button */}
+            <Box display="flex" justifyContent="center" mt={1}>
+              <Button
+                variant="outlined"
+                startIcon={<Add />}
+                onClick={addUrlField}
+                sx={{ mb: 2 }}
+              >
+                Add Another URL
+              </Button>
+            </Box>
           </Box>
+
           {/* <Box mt={2}>
             <Button
               variant="contained"
@@ -76,6 +132,7 @@ export default function ChatInterface() {
               />
             </Button>
           </Box> */}
+          
           <CardActions>
             <Button
               variant="contained"
