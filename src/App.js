@@ -15,7 +15,6 @@ export default function ChatInterface() {
   const [loading, setLoading] = useState(false);
 
   const url = "http://localhost:8001/"
-
   const handleSubmit = async () => {
     setLoading(true);
     const formData = new FormData();
