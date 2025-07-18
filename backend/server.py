@@ -142,10 +142,6 @@ def extract_sdg_number(text):
 
 def make_complete_json(json_text):
     try:
-        json_text = json.loads(json_text)
-    except json.JSONDecodeError as e:
-        return {"error": "Invalid JSON format", "details": str(e)}
-    try:
         if ".asu.edu" in actualUrl:
             seen_sdg_numbers = set()
             unique_programs = []
@@ -168,6 +164,11 @@ def make_complete_json(json_text):
                         seen_sdg_numbers.add(sdg_key.lower())
 
             json_text["programsOrInitiatives"] = unique_programs
+
+            for tag in all_tags:
+                if tag.lower() in ["public service", "community engagement"]:
+                    json_text["activityType"] = tag
+                    break
         else:
             pass  # No specific processing for non-ASU URLs
 
@@ -192,7 +193,7 @@ def extract_json_from_string(response_text):
         match = re.search(r'```json\n(.*?)\n```', response_text, re.DOTALL)
         if match:
             json_text = match.group(1)
-            complete_json=make_complete_json(json_text)
+            complete_json=make_complete_json(json.loads(json_text))
             return complete_json
         
     except json.JSONDecodeError as e:

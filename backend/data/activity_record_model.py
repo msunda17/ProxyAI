@@ -14,9 +14,13 @@ from data.choice_data_enums import (
     FocusAreaCategoryEnvironmentalSustainability,
     FocusAreaCategoryGovernmentAndPublicSafety,
     FocusAreaCategoryHealthandWellness,
-    FocusAreaCategorySocialIssues
+    FocusAreaCategorySocialIssues, 
+    ActivityType
 )
 
+class ActivityType(BaseModel):
+    activityType: str
+    
 class Contact(BaseModel):
     firstName: str
     lastName: str
@@ -98,6 +102,7 @@ class FocusAreasWithinCategories(BaseModel):
     socialIssues: List[FocusAreaCategorySocialIssues]
 
 class ActivityRecord(BaseModel):
+    activityType: str
     activityTitle: str
     activityDescription: str
     activityWebsite: str

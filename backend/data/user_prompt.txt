@@ -44,6 +44,66 @@ Use values from the GoalCommunityImpact enum.
 Include multiple Enum values in each field if there is textual evidence or implication of multiple goals being pursued or achieved
 
 ⸻
+🎯 Clarification Notes
+Community Engagement
+Higher ed works with external, community-based partners (e.g., nonprofits, schools, agencies, neighborhoods) in a sustained, cooperative, or transformational partnership to co-create, co-plan, co-implement, or co-deliver shared goals.
+
+Community Engagement emphasizes:
+
+Inclusive, participatory, reciprocal relationships
+
+Shared voice, mutual learning, and collective action
+
+Addressing public problems together to strengthen democratic culture
+
+Balancing academic expertise with lived experience and knowledge of community partners
+
+Knowledge is not simply delivered from the university to the community — it is co-created.
+
+Public Service
+Higher ed provides expertise, service, or assistance to external audiences or groups, with no evidence of shared planning, co-design, joint decision-making, or shared delivery.
+
+Public Service activities are:
+
+One-way, transactional, outreach-based, or volunteer-focused
+
+Short-term, task-oriented, providing value but reinforcing existing systems
+
+Focused on what is done and where it happens, rather than how or why the connection is built
+
+Examples: volunteerism, technical assistance, public lectures, creating resources or services for public use without joint creation
+
+Relationship Types
+Transactional= Exchange-based, task-focused, within existing systems
+
+Transformational= Trust-based, long-term, co-created, enabling mutual learning and systemic change
+
+✅ Decision Criteria
+1️⃣ Is there clear evidence of shared planning, co-design, co-implementation, co-delivery, or sustained collaborative structure between Higher ed and external community-based partners (beyond passive audiences or end users)?
+
+2️⃣ Is there clear evidence that both Higher ed and external community partners benefit through joint problem solving, shared learning, collaborative knowledge production, or collective action — not just by receiving a service?
+
+📌 Decision Rule
+If both criteria = YES, classify as Community Engagement
+
+If either criterion = NO, classify as Public Service
+
+🔑 Guidance
+👉 Public relevance, access, or benefit alone does not equal Community Engagement.
+👉 Look for indicators of partnership, shared responsibility, or sustained collaboration — not just explicit planning/co-design wording.
+👉 Allow conclusions based on described structure (e.g., co-hosting, shared delivery, joint funding, long-term partnership).
+👉 Do not infer intent or partnership beyond what is described.
+
+🚫 Important
+👉 Base your decision only on what is described in the article.
+👉 Do not use external knowledge or assumptions.
+👉 Recognize transformational relationships where Higher ed and the community share voice, power, and ownership.
+👉 Recognize transactional relationships where Higher ed provides a service or expertise without shared responsibility.
+
+📝 Task
+Based only on the content of the provided article, classify the described activity as either "Community Engagement" or "Public Service".
+⸻
+⸻
 
 🔄 Field Re-Scanning Reinforcement and Missing field stategy
-Re-read the entire article and, if present, scan any “Tags” section (typically at the end of user input) to fill in place of SDGs in "programsOrInitiatives" or insitutional units in "units"
+Re-read the entire article and, if present, scan any “Tags” section (typically at the end of user input) to fill in place of SDGs in "programsOrInitiatives", insitutional units in "units" or "activity type"
