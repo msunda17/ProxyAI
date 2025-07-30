@@ -15,10 +15,13 @@ export default function ChatInterface() {
   const [loading, setLoading] = useState(false);
 
   const url = "http://localhost:8001/"
+  const MAX_URLS = 5; // Maximum number of URLs allowed
 
-  // Add new URL field
+  // Add new URL field (limited to MAX_URLS)
   const addUrlField = () => {
-    setUrls([...urls, ""]);
+    if (urls.length < MAX_URLS) {
+      setUrls([...urls, ""]);
+    }
   };
 
   // Remove URL field at specific index
@@ -79,7 +82,7 @@ export default function ChatInterface() {
             Proxy AI
           </Typography>
           <Typography variant="body2" color="textSecondary" gutterBottom>
-            Provide URLs or upload a file to generate structured activity data.
+            Provide URLs or upload a file to generate structured activity data. (Max 5 URLs)
           </Typography>
           
           {/* URL Input Fields */}
@@ -111,9 +114,10 @@ export default function ChatInterface() {
                 variant="outlined"
                 startIcon={<Add />}
                 onClick={addUrlField}
+                disabled={urls.length >= MAX_URLS}
                 sx={{ mb: 2 }}
               >
-                Add Another URL
+                Add Another URL ({urls.length}/{MAX_URLS})
               </Button>
             </Box>
           </Box>
