@@ -255,7 +255,7 @@ class FocusAreaCategorySocialIssues(Enum):
     SENIOR_ELDER_ISSUES = "Senior/elder issues"
     VOTING_REGISTRATION = "Voting registration"
 
-class ScholarlyProductType(Enum):
+class ScholarlyProductTypes(Enum):
     ARTICLES_MANUSCRIPTS= "Article(s)/Manuscript(s)"
     BOOKS="Book(s)"
     BOOK_CHAPTERS="Book chapter(s)" 

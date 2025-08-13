@@ -15,11 +15,14 @@ from data.choice_data_enums import (
     FocusAreaCategoryGovernmentAndPublicSafety,
     FocusAreaCategoryHealthandWellness,
     FocusAreaCategorySocialIssues, 
-    ActivityType
+    ActivityType,
+    ScholarlyProductTypes,
+    ScholarshipTypes,
+    StudentInvolvement,
 )
 
 class ActivityType(BaseModel):
-    activityType: str
+    activityType: ActivityType
     
 class Contact(BaseModel):
     firstName: str
@@ -69,7 +72,9 @@ class CourseDetail(BaseModel):
 class ResearchDetail(BaseModel):
     isConnected: bool
     researchType: str
-    scholarlyProducts: List[str]
+    studentInvolvement: List[StudentInvolvement]
+    scholarshipTypes: List[ScholarshipTypes]
+    scholarlyProducts: List[ScholarlyProductTypes]
 
 class GoalSection(BaseModel):
     expected: List[GoalOutput]
