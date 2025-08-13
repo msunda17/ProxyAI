@@ -71,7 +71,6 @@ class CourseDetail(BaseModel):
 
 class ResearchDetail(BaseModel):
     isConnected: bool
-    researchType: str
     studentInvolvement: List[StudentInvolvement]
     scholarshipTypes: List[ScholarshipTypes]
     scholarlyProducts: List[ScholarlyProductTypes]
