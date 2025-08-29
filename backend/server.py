@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from urllib.parse import urljoin
 import tiktoken
+import asyncio
 
 app = FastAPI()
 load_dotenv()
@@ -61,8 +62,9 @@ system_retriever = FAISS.load_local("data/system_prompt_index", embeddings, allo
 collaboratory_retriever = FAISS.load_local("data/collaboratory_activity_form_index", embeddings, allow_dangerous_deserialization=True)
 user_retriever = FAISS.load_local("data/user_prompt_index", embeddings, allow_dangerous_deserialization=True)
 
-# Initialize OpenAI Model
-llm = ChatOpenAI(model="gpt-4.1", temperature=0, openai_api_key=openai_api_key)
+# Initialize OpenAI Models for parallel processing
+llm_classification = ChatOpenAI(model="gpt-4o-mini", temperature=0, openai_api_key=openai_api_key)
+llm_extraction = ChatOpenAI(model="gpt-4.1", temperature=0, openai_api_key=openai_api_key)
 
 def get_profile_info(link):
     response = requests.get(link, timeout=10)
@@ -142,7 +144,8 @@ def extract_sdg_number(text):
 
 def make_complete_json(json_text):
     try:
-        if ".asu.edu" in actualUrl:
+        # Check if actualUrl is defined and contains .asu.edu
+        if 'actualUrl' in globals() and ".asu.edu" in actualUrl:
             seen_sdg_numbers = set()
             unique_programs = []
             for item in json_text.get("programsOrInitiatives", []):
@@ -188,6 +191,13 @@ def extract_text_from_pdf(pdf_path):
         return f"Error extracting text from PDF: {str(e)}"
 
 # Function to extract JSON from AI response
+def load_classification_prompt():
+    """Load the classification prompt for activity type determination"""
+    prompt_path = "data/activity_type_classification_prompt.txt"
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        prompt_content = f.read().strip()
+    return prompt_content
+
 def extract_json_from_string(response_text):
     try:
         match = re.search(r'```json\n(.*?)\n```', response_text, re.DOTALL)
@@ -205,19 +215,143 @@ def retrieve_text(query, retriever):
     docs = retriever.similarity_search(query, k=3)
     return " ".join([doc.page_content for doc in docs])
 
+async def classify_activity_type(input_text):
+    """Fast classification call - determines activity type only"""
+    try:        
+        classification_prompt = load_classification_prompt()
+        classification_context = f"""
+        ACTIVITY DESCRIPTION:
+        {input_text}
+        
+        CLASSIFICATION TASK:
+        {classification_prompt}
+        """        
+        response = await llm_classification.ainvoke([
+            {"role": "system", "content": classification_prompt},
+            {"role": "user", "content": classification_context}
+        ])
+        
+        # Extract activity type from response
+        content = response.content
+        
+        # Robust extraction logic - look for exact matches first
+        if "Community Engagement" in content:
+            result = "Community Engagement"
+        elif "Public Service" in content:
+            result = "Public Service"
+        # else:
+        #     # Try to extract from JSON structure if present
+        #     try:
+        #         # First try to find JSON structure
+        #         json_match = re.search(r'```json\s*(.*?)\s*```', content, re.DOTALL)
+        #         if json_match:
+        #             json_content = json_match.group(1)
+        #             print(f"🔍 Classification Debug - Found JSON structure: {json_content}")
+        #             try:
+        #                 json_data = json.loads(json_content)
+        #                 if "activityType" in json_data:
+        #                     result = json_data["activityType"]
+        #                     print(f"🔍 Classification Debug - Extracted from JSON: {result}")
+        #                 else:
+        #                     raise ValueError("No activityType in JSON")
+        #             except json.JSONDecodeError:
+        #                 # Try regex extraction as fallback
+        #                 match = re.search(r'"activityType"\s*:\s*"([^"]+)"', json_content)
+        #                 if match:
+        #                     result = match.group(1)
+        #                     print(f"🔍 Classification Debug - Extracted via regex: {result}")
+        #                 else:
+        #                     raise ValueError("Could not extract activityType from JSON")
+        #         else:
+        #             # No JSON structure, try direct regex extraction
+        #             match = re.search(r'"activityType"\s*:\s*"([^"]+)"', content)
+        #             if match:
+        #                 result = match.group(1)
+        #                 print(f"🔍 Classification Debug - Extracted via direct regex: {result}")
+        #             else:
+        #                 # Force classification with follow-up request
+        #                 print("🔍 Classification Debug - No clear classification found, forcing follow-up...")
+        #                 follow_up_response = await llm_classification.ainvoke([
+        #                     {"role": "system", "content": "You must classify this as either 'Community Engagement' or 'Public Service'. Return ONLY the classification."},
+        #                     {"role": "user", "content": f"Classify this activity: {input_text[:500]}"}
+        #                 ])
+        #                 follow_up_content = follow_up_response.content
+        #                 if "Community Engagement" in follow_up_content:
+        #                     result = "Community Engagement"
+        #                 elif "Public Service" in follow_up_content:
+        #                     result = "Public Service"
+        #                 else:
+        #                     # Last resort - analyze content for keywords
+        #                     if any(word in input_text.lower() for word in ["partnership", "collaboration", "co-", "shared", "joint", "together"]):
+        #                         result = "Community Engagement"
+        #                     else:
+        #                         result = "Public Service"
+            # except Exception as e:
+            #     print(f"🔍 Classification Debug - Error in extraction logic: {e}")
+            #     # Last resort - analyze content for keywords
+            #     if any(word in input_text.lower() for word in ["partnership", "collaboration", "co-", "shared", "joint", "together"]):
+            #         result = "Community Engagement"
+            #     else:
+            #         result = "Public Service"
+        
+        return result
+            
+    except Exception as e:
+        print(f"❌ Classification error: {e}")
+        # Even in case of error, try to classify based on content
+        if any(word in input_text.lower() for word in ["partnership", "collaboration", "co-", "shared", "joint", "together"]):
+            return "Community Engagement"
+        else:
+            return "Public Service"
+
+async def extract_full_data(input_text, choice_text, model_text, system_text, user_text, collaboratory_text):
+    """Full data extraction call - processes all fields with RAG"""
+    try:
+        # Combine retrieved content for full extraction
+        full_context = f"{input_text} \n {choice_text} \n {model_text} \n {user_text} \n {collaboratory_text}"
+        
+        response = await llm_extraction.ainvoke([
+            {"role": "system", "content": system_text},
+            {"role": "user", "content": full_context}
+        ])
+        
+        return response.content
+        
+    except Exception as e:
+        print(f"Extraction error: {e}")
+        return None
+
+def merge_responses(activity_type, extraction_response):
+    """Merge classification and extraction responses"""
+    try:
+        # Extract JSON from extraction response
+        extracted_json = extract_json_from_string(extraction_response)
+        
+        if "error" in extracted_json:
+            return extracted_json
+        
+        # Ensure activityType is set correctly
+        extracted_json["activityType"] = activity_type
+        
+        return extracted_json
+        
+    except Exception as e:
+        print(f"Merge error: {e}")
+        return {"error": "Failed to merge responses", "details": str(e)}
+
 class InputData(BaseModel):
     url: Optional[str] = None
     file: Optional[UploadFile] = None
 
 @app.post("/generate_activity")
 @weave.op()
-def generate_activity(input_data: InputData):
-    """Process user input and generate structured Collaboratory activity data."""
+async def generate_activity(input_data: InputData):
+    import time
+    start_time = time.time()
+    
     wandb.log({"request_received": input_data.dict()})
     
     input_text = extract_text(input_data.url, input_data.file)
-    print ("Input Text:", input_text)
-
     # Retrieve relevant texts
     choice_text = retrieve_text(input_text, choice_retriever)
     model_text = retrieve_text(input_text, model_retriever)
@@ -225,31 +359,38 @@ def generate_activity(input_data: InputData):
     collaboratory_text = retrieve_text(input_text, collaboratory_retriever)
     user_text = retrieve_text(input_text, user_retriever)
 
-    # Combine retrieved content
-    full_context = f"{input_text} \n {choice_text} \n {model_text} \n {user_text} \n {collaboratory_text}"
+    try:
+        # Execute both tasks concurrently using asyncio
+        classification_task = classify_activity_type(input_text)
+        extraction_task = extract_full_data(input_text, choice_text, model_text, system_text, user_text, collaboratory_text)
+        
+        # Wait for both tasks to complete concurrently
+        activity_type, extraction_response = await asyncio.gather(classification_task, extraction_task)
+        # Combine classification and extraction responses
+        final_response = merge_responses(activity_type, extraction_response)
+    except Exception as e:
+        print(f"Parallel processing failed, falling back to sequential: {e}")
+        
+        # Fallback to sequential processing
+        activity_type = await classify_activity_type(input_text)
+        extraction_response = await extract_full_data(input_text, choice_text, model_text, system_text, user_text, collaboratory_text)
+        final_response = merge_responses(activity_type, extraction_response)
 
-    structured_response = llm.invoke([
-        {"role": "system", "content": system_text},
-        {"role": "user", "content": full_context}
-    ])
-
-    messages = [{"role": "system", "content": system_text}] + [{"role": "user", "content": full_context}]
-
+    # Calculate token usage for monitoring
     input_tokens = count_tokens(input_text)
     choice_tokens = count_tokens(choice_text)
     model_tokens = count_tokens(model_text)
     user_tokens = count_tokens(user_text)
     collab_tokens = count_tokens(collaboratory_text)
     system_tokens = count_tokens(system_text)
-    prompt_tokens = system_tokens + count_tokens(full_context)
-
-    structured_response = llm.invoke(messages)
     
-    # Print AI Message in logs
-    print("AI Message:", structured_response.content)
-
-    response_tokens = count_tokens(structured_response.content)  
-    total_llm_tokens = prompt_tokens + response_tokens
+    # Use final_response for token counting
+    if isinstance(final_response, dict) and "error" not in final_response:
+        response_tokens = count_tokens(str(final_response))
+    else:
+        response_tokens = 0
+    
+    total_llm_tokens = system_tokens + response_tokens
     rag_tokens = input_tokens + choice_tokens + model_tokens + user_tokens + collab_tokens
     total_pipeline_tokens = total_llm_tokens + rag_tokens
 
@@ -259,17 +400,24 @@ def generate_activity(input_data: InputData):
     print(f"User Tokens: {user_tokens}")
     print(f"Collaboratory Tokens: {collab_tokens}")
     print(f"System Prompt Tokens: {system_tokens}")
-    print(f"Prompt Tokens (system + few shot): {prompt_tokens}")
     print(f"Response Token Count: {response_tokens}")
     print(f"Total LLM Tokens (Prompt + Response): {total_llm_tokens}")
     print(f"Total Pipeline Tokens (Input + Retrieval + LLM): {total_pipeline_tokens}")
 
-    # Extract JSON from response
-    extracted_json = extract_json_from_string(structured_response.content)
+    # Calculate total processing time
+    total_time = time.time() - start_time
+    print(f"Total processing time: {total_time:.2f} seconds")
 
-    wandb.log({"ai_message": structured_response.content, "structured_response": extracted_json})
+    # Log to Weights & Biases with parallel processing metrics
+    wandb.log({
+        "ai_message": final_response,
+        "structured_response": final_response,
+        "total_processing_time": total_time,
+        "parallel_processing": True,
+        "activity_type": activity_type
+    })
     
-    return {"ai_message": structured_response.content, "structured_response": extracted_json}
+    return {"ai_message": final_response, "structured_response": final_response}
 
 def extract_text(url, file):
     if url:
