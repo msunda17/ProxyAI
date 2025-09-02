@@ -41,6 +41,16 @@ Include multiple Enum values in each field if there is textual evidence or impli
 	9.	goals.communityImpacts.expected / achieved
 Use values from the GoalCommunityImpact enum.
 
+	10. focus.scholarlyProductTypes
+Use values from the ScholarlyProductType enum.
+
+	11. focus.scholarshipTypes
+Use values from the ScholarshipTypes enum.
+CRITICAL: Return ONLY exact string matches from the enum.
+
+    12. focus.studentInvolvement
+Use values frm the StudentInvolvement enum.
+
 Include multiple Enum values in each field if there is textual evidence or implication of multiple goals being pursued or achieved
 
 ⸻
