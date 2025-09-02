@@ -38,7 +38,6 @@ export default function ChatInterface() {
     newUrls[index] = value;
     setUrls(newUrls);
   };
-
   const handleSubmit = async () => {
     setLoading(true);
     const formData = new FormData();
