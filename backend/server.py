@@ -239,66 +239,10 @@ async def classify_activity_type(input_text):
             result = "Community Engagement"
         elif "Public Service" in content:
             result = "Public Service"
-        # else:
-        #     # Try to extract from JSON structure if present
-        #     try:
-        #         # First try to find JSON structure
-        #         json_match = re.search(r'```json\s*(.*?)\s*```', content, re.DOTALL)
-        #         if json_match:
-        #             json_content = json_match.group(1)
-        #             print(f"🔍 Classification Debug - Found JSON structure: {json_content}")
-        #             try:
-        #                 json_data = json.loads(json_content)
-        #                 if "activityType" in json_data:
-        #                     result = json_data["activityType"]
-        #                     print(f"🔍 Classification Debug - Extracted from JSON: {result}")
-        #                 else:
-        #                     raise ValueError("No activityType in JSON")
-        #             except json.JSONDecodeError:
-        #                 # Try regex extraction as fallback
-        #                 match = re.search(r'"activityType"\s*:\s*"([^"]+)"', json_content)
-        #                 if match:
-        #                     result = match.group(1)
-        #                     print(f"🔍 Classification Debug - Extracted via regex: {result}")
-        #                 else:
-        #                     raise ValueError("Could not extract activityType from JSON")
-        #         else:
-        #             # No JSON structure, try direct regex extraction
-        #             match = re.search(r'"activityType"\s*:\s*"([^"]+)"', content)
-        #             if match:
-        #                 result = match.group(1)
-        #                 print(f"🔍 Classification Debug - Extracted via direct regex: {result}")
-        #             else:
-        #                 # Force classification with follow-up request
-        #                 print("🔍 Classification Debug - No clear classification found, forcing follow-up...")
-        #                 follow_up_response = await llm_classification.ainvoke([
-        #                     {"role": "system", "content": "You must classify this as either 'Community Engagement' or 'Public Service'. Return ONLY the classification."},
-        #                     {"role": "user", "content": f"Classify this activity: {input_text[:500]}"}
-        #                 ])
-        #                 follow_up_content = follow_up_response.content
-        #                 if "Community Engagement" in follow_up_content:
-        #                     result = "Community Engagement"
-        #                 elif "Public Service" in follow_up_content:
-        #                     result = "Public Service"
-        #                 else:
-        #                     # Last resort - analyze content for keywords
-        #                     if any(word in input_text.lower() for word in ["partnership", "collaboration", "co-", "shared", "joint", "together"]):
-        #                         result = "Community Engagement"
-        #                     else:
-        #                         result = "Public Service"
-            # except Exception as e:
-            #     print(f"🔍 Classification Debug - Error in extraction logic: {e}")
-            #     # Last resort - analyze content for keywords
-            #     if any(word in input_text.lower() for word in ["partnership", "collaboration", "co-", "shared", "joint", "together"]):
-            #         result = "Community Engagement"
-            #     else:
-            #         result = "Public Service"
-        
         return result
             
     except Exception as e:
         print(f"❌ Classification error: {e}")
-        # Even in case of error, try to classify based on content
         if any(word in input_text.lower() for word in ["partnership", "collaboration", "co-", "shared", "joint", "together"]):
             return "Community Engagement"
         else:
