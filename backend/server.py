@@ -285,6 +285,7 @@ def merge_responses(activity_type, extraction_response):
 
 class InputData(BaseModel):
     url: Optional[str] = None
+    urls: Optional[list[str]] = None
     file: Optional[UploadFile] = None
 
 @app.post("/generate_activity")
@@ -295,7 +296,19 @@ async def generate_activity(input_data: InputData):
     
     wandb.log({"request_received": input_data.dict()})
     
-    input_text = extract_text(input_data.url, input_data.file)
+    # Handle multiple URLs
+    if input_data.urls:
+        # Process multiple URLs
+        all_texts = []
+        for url in input_data.urls:
+            if url.strip():  # Skip empty URLs
+                scraped_text = scrape_url_content(url)
+                all_texts.append(scraped_text)
+        input_text = "\n\n---\n\n".join(all_texts)  # Separate URLs with dividers
+    else:
+        # Handle single URL (backward compatibility)
+        input_text = extract_text(input_data.url, input_data.file)
+    
     # Retrieve relevant texts
     choice_text = retrieve_text(input_text, choice_retriever)
     model_text = retrieve_text(input_text, model_retriever)
