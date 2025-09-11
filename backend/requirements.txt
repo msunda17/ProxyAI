@@ -13,3 +13,4 @@ faiss-cpu
 python-dotenv
 pypdf2
 tiktoken
+aiohttp
