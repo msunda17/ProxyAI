@@ -11,10 +11,28 @@ Therefore:
 
 	1.	programsOrInitiatives
 Must use values from the SustainableDevelopmentGoal enum.
-Use best-match logic only to identify relevant values from the input text, but return only exact string matches from the enum definitions.
-You may also include program names explicitly mentioned in the source.
+🚨 CRITICAL: Only select SDGs that are STRONGLY and CLEARLY semantically related to the article content.
+• SCAN THE ENTIRE ARTICLE SYSTEMATICALLY for ALL relevant SDGs - do not stop after finding the first or most obvious match.
+• You must find DIRECT textual evidence or explicit mention of the SDG's theme in the article.
+• Include MULTIPLE SDGs when there is STRONG evidence for each one - the article may address multiple SDG themes.
+• Do NOT select SDGs based on weak semantic similarity or tangential connections.
+• Do NOT select SDGs just because they appear in the retrieved context - retrieved values are only reference options, not recommendations.
+• If an SDG is only weakly related or requires significant inference, DO NOT include it.
+• Only include SDGs where the article's content directly addresses the SDG's core objectives.
+• When in doubt, leave the field empty ([]) rather than including weakly related SDGs.
+• You may also include program names explicitly mentioned in the source, but only if they are explicitly stated.
+Return only exact string matches from the enum definitions (case-sensitive, punctuation-sensitive).
 	2.	targetPopulation
 Use exact values from the TargetPopulation enum.
+🚨 CRITICAL: Only select target populations that are EXPLICITLY or STRONGLY IMPLIED in the article content.
+• You must find DIRECT textual evidence or explicit mention of the target population in the article.
+• Do NOT infer or assume target populations based on the activity type or context.
+• Do NOT select populations just because they might logically benefit from the activity.
+• Do NOT select populations based on weak semantic connections or general assumptions.
+• Do NOT select populations that are only tangentially mentioned or appear in background context.
+• Include ONLY populations that are directly named, described, or clearly identified as participants/beneficiaries in the activity.
+• When in doubt, leave the field empty ([]) rather than including populations with insufficient evidence.
+Return only exact string matches from the enum definitions (case-sensitive, punctuation-sensitive).
 	3.	focusAreaCategories
 Use values from the FocusAreaCategory enum.
 	4.	focusAreasWithinCategories
