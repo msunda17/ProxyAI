@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from urllib.parse import urljoin
 import tiktoken
+from evaluation import Tier1Evaluator
 
 app = FastAPI()
 load_dotenv()
@@ -215,8 +216,14 @@ def generate_activity(input_data: InputData):
     """Process user input and generate structured Collaboratory activity data."""
     wandb.log({"request_received": input_data.dict()})
     
+    # Initialize evaluator
+    evaluator = Tier1Evaluator()
+    
+    # Store all output messages to print at the end
+    output_buffer = []
+    
     input_text = extract_text(input_data.url, input_data.file)
-    print ("Input Text:", input_text)
+    output_buffer.append(f"Input Text: {input_text}")
 
     # Retrieve relevant texts
     choice_text = retrieve_text(input_text, choice_retriever)
@@ -245,29 +252,47 @@ def generate_activity(input_data: InputData):
 
     structured_response = llm.invoke(messages)
     
-    # Print AI Message in logs
-    print("AI Message:", structured_response.content)
+    # Store AI Message
+    output_buffer.append(f"AI Message: {structured_response.content}")
 
     response_tokens = count_tokens(structured_response.content)  
     total_llm_tokens = prompt_tokens + response_tokens
     rag_tokens = input_tokens + choice_tokens + model_tokens + user_tokens + collab_tokens
     total_pipeline_tokens = total_llm_tokens + rag_tokens
 
-    print(f"Input Tokens: {input_tokens}")
-    print(f"Choice Tokens: {choice_tokens}")
-    print(f"Model Tokens: {model_tokens}")
-    print(f"User Tokens: {user_tokens}")
-    print(f"Collaboratory Tokens: {collab_tokens}")
-    print(f"System Prompt Tokens: {system_tokens}")
-    print(f"Prompt Tokens (system + few shot): {prompt_tokens}")
-    print(f"Response Token Count: {response_tokens}")
-    print(f"Total LLM Tokens (Prompt + Response): {total_llm_tokens}")
-    print(f"Total Pipeline Tokens (Input + Retrieval + LLM): {total_pipeline_tokens}")
+    # Store token metrics
+    output_buffer.append(f"Input Tokens: {input_tokens}")
+    output_buffer.append(f"Choice Tokens: {choice_tokens}")
+    output_buffer.append(f"Model Tokens: {model_tokens}")
+    output_buffer.append(f"User Tokens: {user_tokens}")
+    output_buffer.append(f"Collaboratory Tokens: {collab_tokens}")
+    output_buffer.append(f"System Prompt Tokens: {system_tokens}")
+    output_buffer.append(f"Prompt Tokens (system + few shot): {prompt_tokens}")
+    output_buffer.append(f"Response Token Count: {response_tokens}")
+    output_buffer.append(f"Total LLM Tokens (Prompt + Response): {total_llm_tokens}")
+    output_buffer.append(f"Total Pipeline Tokens (Input + Retrieval + LLM): {total_pipeline_tokens}")
 
     # Extract JSON from response
     extracted_json = extract_json_from_string(structured_response.content)
 
-    wandb.log({"ai_message": structured_response.content, "structured_response": extracted_json})
+    # Run Tier 1 Evaluation
+    evaluation_results = evaluator.evaluate(extracted_json)
+    evaluation_report = evaluator.print_evaluation_report(evaluation_results)
+    
+    # Log to wandb
+    wandb.log({
+        "ai_message": structured_response.content, 
+        "structured_response": extracted_json,
+        "tier1_evaluation": evaluation_results
+    })
+    
+    # NOW PRINT EVERYTHING AT THE END
+    # First print all the buffered output
+    for line in output_buffer:
+        print(line)
+    
+    # Then print the evaluation report at the very end
+    print(evaluation_report)
     
     return {"ai_message": structured_response.content, "structured_response": extracted_json}
 
